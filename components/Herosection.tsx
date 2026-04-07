@@ -241,19 +241,20 @@ export default function HeroSection() {
 
           {/* The map — gentle float */}
           <motion.div
-            animate={{ y: [0, -12, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-            className="relative w-full max-w-[600px]"
-            style={{ aspectRatio: '4/5' }}
-          >
-            <Image
-              src="/object1.png"        // ← must be in /public/object1.png
-              alt="Map of Africa"
-              fill
-              className="object-contain object-center"
-              priority
-            />
-          </motion.div>
+  whileHover={{ scale: 1.05 }}
+  className="relative w-full max-w-[600px] transition duration-300
+             opacity-50 hover:opacity-100
+             hover:drop-shadow-[0_0_30px_rgba(108,199,254,0.9)]"
+  style={{ aspectRatio: '4/5' }}
+>
+  <Image
+    src="/map.svg"
+    alt="Map of Africa"
+    fill
+    className="object-contain object-center transition duration-300"
+    priority
+  />
+</motion.div>
         </motion.div>
       </div>
 
