@@ -3,57 +3,79 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, ChevronRight } from 'lucide-react'
 
-// ── Dropdown menu data ──────────────────────────────────────────────
 const NAV_ITEMS = [
   {
     label: 'About Us',
     dropdown: [
-      { label: 'Our Story',       href: '/about' },
-      { label: 'Our Mission',     href: '/about#mission' },
-      { label: 'Meet the Team',   href: '/about#team' },
-      { label: 'Our Impact',      href: '/about#impact' },
+      { label: 'Our Story', href: '/about' },
+      { label: 'Our Mission', href: '/about#mission' },
+      { label: 'Meet the Team', href: '/about#team' },
+      { label: 'Our Impact', href: '/about#impact' },
     ],
   },
   {
     label: 'What We Do',
     dropdown: [
-      { label: 'Education',              href: '/programs/education' },
-      { label: 'Preventive Health',      href: '/programs/health' },
-      { label: 'Sustainable Livelihoods',href: '/programs/livelihoods' },
-      { label: 'Governance',             href: '/programs/governance' },
+      {
+        label: 'Education',
+        dropdown: [
+          { label: 'Chance for the Youth', href: '/programs/education/chance-for-the-youth' },
+          { label: 'AfriCode Hub', href: '/programs/education/africode-hub' },
+          { label: 'Career Guidance and Counselling', href: '/programs/education/career-guidance' },
+          { label: 'Education-for-All', href: '/programs/education/education-for-all' },
+        ],
+      },
+      {
+        label: 'Preventive Health',
+        dropdown: [
+          { label: 'Operation ReachOut', href: '/programs/health/operation-reachout' },
+          { label: 'Adolescent Health', href: '/programs/health/adolescent-health' },
+          { label: 'Preventive Screening Early Detection & Treatment', href: '/programs/health/screening' },
+          { label: 'WASH', href: '/programs/health/wash' },
+          { label: 'Digital Health & mHealth Programs', href: '/programs/health/digital-health' },
+        ],
+      },
+      {
+        label: 'Sustainable Livelihoods',
+        dropdown: [
+          { label: 'Empowering Hands', href: '/programs/livelihoods/empowering-hands' },
+          { label: 'StartRite Africa Initiative', href: '/programs/livelihoods/startrite' },
+          { label: 'WillWay Centre for Women’s Skills & Enterprise', href: '/programs/livelihoods/willway-centre' },
+          { label: 'Skills Training and Microenterprise Development', href: '/programs/livelihoods/skills-training' },
+        ],
+      },
+      {
+        label: 'Environment',
+        dropdown: [
+          { label: 'Environmental Education & Awareness Programs', href: '/programs/environment/education' },
+          { label: 'Water Resource Management Programs', href: '/programs/environment/water' },
+        ],
+      },
     ],
   },
   { label: 'Get Involved', href: '/get-involved' },
-  { label: 'Blog',    href: '/blog' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ]
 
-// ── Dropdown panel animation ────────────────────────────────────────
-const dropdownVariants = {
-  hidden:  { opacity: 0, y: -8, scale: 0.97 },
-  visible: { opacity: 1, y: 0,  scale: 1,
-    transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } },
-  exit:    { opacity: 0, y: -6, scale: 0.97,
-    transition: { duration: 0.15 } },
-}
-
 export default function Navbar() {
-  const [openMenu, setOpenMenu]     = useState<string | null>(null)
-  const [scrolled, setScrolled]     = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const navRef                      = useRef<HTMLDivElement>(null)
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const navRef = useRef<HTMLDivElement>(null)
 
-  // Shadow on scroll
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  const handleMouseEnter = (label: string) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    setOpenMenu(label)
+  }
 
-  // Close dropdown on outside click
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setOpenMenu(null)
+    }, 180)
+  }
+
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
@@ -65,226 +87,134 @@ export default function Navbar() {
   }, [])
 
   return (
-    <header
-      ref={navRef}
-      className={`sticky top-0 z-50 w-full bg-white transition-shadow duration-300 ${
-        scrolled ? 'shadow-[0_2px_20px_rgba(0,0,0,0.08)]' : 'border-b border-gray-100'
-      }`}
-    >
+    <header ref={navRef} className="sticky top-0 z-50 bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="flex items-center justify-between h-[72px]">
+        <div className="flex justify-between items-center h-[72px]">
 
-          {/* ── LOGO ─────────────────────────────────────────── */}
-          <Link href="/" className="flex-shrink-0">
-            <Image
-              src="/logo.png"
-              alt="WillWay Africa"
-              width={52}
-              height={52}
-              className="rounded-full object-contain"
-              priority
-            />
+          {/* LOGO */}
+          <Link href="/">
+            <Image src="/logo.png" alt="logo" width={50} height={50} />
           </Link>
 
-          {/* ── DESKTOP NAV ──────────────────────────────────── */}
+          {/* NAV */}
           <nav className="hidden md:flex items-center gap-1">
             {NAV_ITEMS.map(item => (
               <div key={item.label} className="relative">
+
+                {/* TOP LEVEL */}
                 {item.dropdown ? (
-                  // Items WITH dropdown
                   <button
-                    onMouseEnter={() => setOpenMenu(item.label)}
-                    onMouseLeave={() => setOpenMenu(null)}
-                    onClick={() =>
-                      setOpenMenu(openMenu === item.label ? null : item.label)
-                    }
-                    className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium
-                      transition-colors duration-150 select-none
-                      ${openMenu === item.label
-                        ? 'text-[#0D0D0D] bg-gray-50'
-                        : 'text-[#374151] hover:text-[#0D0D0D] hover:bg-gray-50'
-                      }`}
+                    onMouseEnter={() => handleMouseEnter(item.label)}
+                    onMouseLeave={handleMouseLeave}
+                    className="
+                      relative flex items-center gap-1 px-4 py-2 text-sm font-medium text-gray-700
+                      hover:text-black
+                      after:content-[''] after:absolute after:left-0 after:bottom-0
+                      after:h-[2px] after:w-0 after:bg-yellow-400
+                      after:transition-all after:duration-300
+                      hover:after:w-full
+                    "
                   >
                     {item.label}
-                    <motion.span
-                      animate={{ rotate: openMenu === item.label ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
-                    </motion.span>
+                    <ChevronDown className="w-4 h-4" />
                   </button>
                 ) : (
-                  // Plain links
                   <Link
                     href={item.href!}
-                    className="flex items-center px-4 py-2 rounded-lg text-sm font-medium
-                      text-[#374151] hover:text-[#0D0D0D] hover:bg-gray-50
-                      transition-colors duration-150"
+                    className="
+                      relative px-4 py-2 text-sm text-gray-700 hover:text-black
+                      after:content-[''] after:absolute after:left-0 after:bottom-0
+                      after:h-[2px] after:w-0 after:bg-yellow-400
+                      after:transition-all after:duration-300
+                      hover:after:w-full
+                    "
                   >
                     {item.label}
                   </Link>
                 )}
 
-                {/* ── DROPDOWN PANEL ── */}
-                {item.dropdown && (
+                {/* DROPDOWN */}
+                {item.dropdown && openMenu === item.label && (
                   <div
-                    onMouseEnter={() => setOpenMenu(item.label)}
-                    onMouseLeave={() => setOpenMenu(null)}
-                    className="absolute top-full left-0 pt-1"
+                    onMouseEnter={() => handleMouseEnter(item.label)}
+                    onMouseLeave={handleMouseLeave}
+                    className="absolute top-full left-0 pt-2 z-50"
                   >
-                    <AnimatePresence>
-                      {openMenu === item.label && (
-                        <motion.div
-                          variants={dropdownVariants}
-                          initial="hidden"
-                          animate="visible"
-                          exit="exit"
-                          className="bg-white rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.10)]
-                            border border-gray-100 py-2 min-w-[200px] overflow-hidden"
-                        >
-                          {item.dropdown.map(sub => (
+                    <div className="bg-white border rounded-xl shadow-lg py-2 min-w-[240px]">
+
+                      {item.dropdown.map(sub => (
+                        <div key={sub.label} className="relative group">
+
+                          {/* FIRST LEVEL (ONLY ABOUT US GETS DOT) */}
+                          {sub.href ? (
                             <Link
-                              key={sub.label}
                               href={sub.href}
-                              onClick={() => setOpenMenu(null)}
-                              className="flex items-center px-4 py-2.5 text-sm text-[#374151]
-                                hover:bg-[#6CC7FE]/10 hover:text-[#0D0D0D]
-                                transition-colors duration-150 group"
+                              className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                             >
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#6CC7FE] mr-3
-                                opacity-0 group-hover:opacity-100 transition-opacity" />
-                              {sub.label}
+                              <span className="flex items-center gap-2">
+                                {item.label === 'About Us' && (
+                                  <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 opacity-0 group-hover:opacity-100 transition"></span>
+                                )}
+                                {sub.label}
+                              </span>
                             </Link>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                          ) : (
+                            <div className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                              <span className="flex items-center gap-2">
+                                {item.label === 'About Us' && (
+                                  <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 opacity-0 group-hover:opacity-100 transition"></span>
+                                )}
+                                {sub.label}
+                              </span>
+
+                              <ChevronRight className="w-4 h-4 text-gray-400" />
+                            </div>
+                          )}
+
+                          {/* SECOND LEVEL (UNCHANGED - DOTS STILL EXIST HERE) */}
+                          {sub.dropdown && (
+                            <div className="absolute top-0 left-full ml-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition z-50">
+                              <div className="bg-white border rounded-xl shadow-lg py-2 min-w-[240px]">
+
+                                {sub.dropdown.map(child => (
+                                  <Link
+                                    key={child.label}
+                                    href={child.href}
+                                    className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 group/item"
+                                  >
+                                    <span>{child.label}</span>
+
+                                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 opacity-0 group-hover/item:opacity-100 transition"></span>
+                                  </Link>
+                                ))}
+
+                              </div>
+                            </div>
+                          )}
+
+                        </div>
+                      ))}
+
+                    </div>
                   </div>
                 )}
+
               </div>
             ))}
           </nav>
 
-          {/* ── DONATE BUTTON ────────────────────────────────── */}
+          {/* DONATE */}
           <div className="hidden md:block">
-            <motion.a
+            <Link
               href="/donate"
-              whileHover={{ scale: 1.04, backgroundColor: '#3aaef0' }}
-              whileTap={{ scale: 0.97 }}
-              className="bg-[#6CC7FE] text-[#0D0D0D] font-bold text-sm
-                px-6 py-2.5 rounded-xl tracking-wide transition-colors
-                shadow-[0_2px_10px_rgba(108,199,254,0.35)]"
-              style={{ fontFamily: "'Syne', sans-serif" }}
+              className="bg-[#6CC7FE] text-black font-semibold px-6 py-2.5 rounded-xl"
             >
               DONATE
-            </motion.a>
+            </Link>
           </div>
 
-          {/* ── MOBILE HAMBURGER ─────────────────────────────── */}
-          <button
-            className="md:hidden flex flex-col gap-[5px] p-2 rounded-lg hover:bg-gray-50 transition"
-            onClick={() => setMobileOpen(v => !v)}
-            aria-label="Toggle menu"
-          >
-            <motion.span
-              animate={mobileOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-              className="block w-5 h-[2px] bg-[#0D0D0D] rounded-full origin-center"
-            />
-            <motion.span
-              animate={mobileOpen ? { opacity: 0, x: -6 } : { opacity: 1, x: 0 }}
-              className="block w-5 h-[2px] bg-[#0D0D0D] rounded-full"
-            />
-            <motion.span
-              animate={mobileOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-              className="block w-5 h-[2px] bg-[#0D0D0D] rounded-full origin-center"
-            />
-          </button>
         </div>
       </div>
-
-      {/* ── MOBILE MENU ──────────────────────────────────────────── */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden overflow-hidden border-t border-gray-100 bg-white"
-          >
-            <div className="px-4 py-4 space-y-1">
-              {NAV_ITEMS.map(item => (
-                <div key={item.label}>
-                  {item.dropdown ? (
-                    <>
-                      <button
-                        onClick={() =>
-                          setOpenMenu(openMenu === item.label ? null : item.label)
-                        }
-                        className="w-full flex items-center justify-between px-3 py-2.5
-                          rounded-lg text-sm font-medium text-[#374151]
-                          hover:bg-gray-50 transition-colors"
-                      >
-                        {item.label}
-                        <motion.span
-                          animate={{ rotate: openMenu === item.label ? 180 : 0 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <ChevronDown className="w-4 h-4 text-gray-400" />
-                        </motion.span>
-                      </button>
-                      <AnimatePresence>
-                        {openMenu === item.label && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="ml-3 pl-3 border-l-2 border-[#6CC7FE]/30 overflow-hidden"
-                          >
-                            {item.dropdown.map(sub => (
-                              <Link
-                                key={sub.label}
-                                href={sub.href}
-                                onClick={() => { setOpenMenu(null); setMobileOpen(false) }}
-                                className="block px-3 py-2 text-sm text-[#6B7280]
-                                  hover:text-[#0D0D0D] transition-colors"
-                              >
-                                {sub.label}
-                              </Link>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </>
-                  ) : (
-                    <Link
-                      href={item.href!}
-                      onClick={() => setMobileOpen(false)}
-                      className="block px-3 py-2.5 rounded-lg text-sm font-medium
-                        text-[#374151] hover:bg-gray-50 transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </div>
-              ))}
-
-              {/* Mobile donate */}
-              <div className="pt-3">
-                <a
-                  href="/donate"
-                  className="block w-full text-center bg-[#6CC7FE] text-[#0D0D0D]
-                    font-bold text-sm py-3 rounded-xl tracking-wide"
-                  style={{ fontFamily: "'Syne', sans-serif" }}
-                >
-                  DONATE
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   )
 }
