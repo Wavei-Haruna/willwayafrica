@@ -68,20 +68,18 @@ function SectionLabel({ text }: { text: string }) {
 // ── Real Unsplash images ────────────────────────────────────────────
 const INITIATIVE_IMAGES = [
   {
-    url: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80&fit=crop',
+    url: '/Our-Initiative_1.jpg',
     alt: 'Student studying at night',
   },
   {
-    url: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80&fit=crop',
+    url: '/Our-Initiative_2.jpg',
     alt: 'Healthcare workers in Africa',
   },
 ]
 
-const WHY_IMAGE =
-  'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=700&q=80&fit=crop&crop=face'
+const WHY_IMAGE = '/Why-Young-People-and-Rural-Women.jpg'
 
-const IMPACT_IMAGE =
-  'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=700&q=80&fit=crop'
+const IMPACT_IMAGE ='/Our-Impact.jpg'
 
 // ── Stats for impact ────────────────────────────────────────────────
 const IMPACT_POINTS = [

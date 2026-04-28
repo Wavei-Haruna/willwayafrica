@@ -89,7 +89,7 @@ const PILLARS = [
     headline: 'Every child deserves a door worth opening.',
     subline: 'We build it.',
     body: 'From scholarships to coding labs to career counselling — our education programmes don\'t just keep children in school. They ignite ambition, cultivate talent, and produce the next generation of African changemakers.',
-    image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=900&q=80&fit=crop',
+    image: '/Education.jpg',
     programs: [
       {
         name: 'Chance for the Youth',
@@ -120,7 +120,7 @@ const PILLARS = [
     headline: 'Healthy youth build unbreakable communities.',
     subline: 'We start with prevention.',
     body: 'Guided by SDG 3, our health programmes deliver care where formal systems haven\'t reached — through mobile clinics, digital tools, and community champions who make health personal, local, and lasting.',
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&q=80&fit=crop',
+    image: '/Preventive-Health.jpg',
     programs: [
       {
         name: 'Operation ReachOut',
@@ -156,7 +156,7 @@ const PILLARS = [
     headline: 'Economic freedom isn\'t given.',
     subline: 'We help people earn it — permanently.',
     body: 'Women head a third of all households and face disproportionate poverty. Our livelihood programmes meet them where they are: practical skills, seed capital, mentorship, and markets that create income that lasts.',
-    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=900&q=80&fit=crop',
+    image: '/Sustainable-Livelihoods.jpg',
     programs: [
       {
         name: 'Empowering Hands',
@@ -187,7 +187,7 @@ const PILLARS = [
     headline: 'The land feeds us.',
     subline: 'We protect it together.',
     body: 'Community-driven environmental programmes that raise awareness, manage water resources, and turn young Africans into stewards — not bystanders — of the ecosystems their futures depend on.',
-    image: 'https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=900&q=80&fit=crop',
+    image: '/Environment.jpg',
     programs: [
       {
         name: 'Environmental Education & Awareness',

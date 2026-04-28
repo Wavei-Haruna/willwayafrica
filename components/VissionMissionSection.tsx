@@ -203,7 +203,7 @@ export default function VisionMissionSection() {
                   shadow-[0_20px_60px_rgba(108,199,254,0.25)]"
               >
                 <Image
-                  src="/mission.jpg"
+                  src="/Our-Mission.jpg"
                   alt="Mission illustration"
                   fill
                   className="object-cover"
@@ -258,7 +258,7 @@ export default function VisionMissionSection() {
                   shadow-[0_20px_60px_rgba(108,199,254,0.25)]"
               >
                 <Image
-                  src="/vision.jpg"
+                  src="/Our-Vision.jpg"
                   alt="Vision illustration"
                   fill
                   className="object-cover"

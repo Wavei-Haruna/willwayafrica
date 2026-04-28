@@ -138,9 +138,9 @@ const PARTNER_TYPES = [
 ]
 
 const VOLUNTEER_IMAGES = [
-  'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&q=80&fit=crop',
-  'https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=400&q=80&fit=crop',
-  'https://images.unsplash.com/photo-1594708767771-a5e9d3012f0e?w=400&q=80&fit=crop',
+  '/Get-Involved-1.jpg',
+  '/Get-Involved-2.jpg',
+  '/Get-Involved-3.jpg',
 ]
 
 // ════════════════════════════════════════════════════════════════════
