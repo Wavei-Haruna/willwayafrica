@@ -9,12 +9,12 @@ const NAV_ITEMS = [
   {
     label: 'About Us',
     href: '/',
-
   },
   { label: 'What We Do',   href: '/what-we-do' },
   { label: 'Blog',         href: '/blog' },
   { label: 'Get Involved', href: '/get-involved' },
   { label: 'Contact',      href: '/contact' },
+  { label: 'Our Team',      href: '/our-team' },
 ]
 
 export default function Navbar() {
@@ -57,14 +57,13 @@ export default function Navbar() {
             {NAV_ITEMS.map(item => (
               <div key={item.label} className="relative">
 
-                {/* Top-level WITH dropdown — clicking label navigates, hovering opens dropdown */}
+                {/* Top-level WITH dropdown */}
                 {item.dropdown ? (
                   <div
                     onMouseEnter={() => handleMouseEnter(item.label)}
                     onMouseLeave={handleMouseLeave}
                     className="flex items-center"
                   >
-                    {/* Clickable label navigates to top-level href if present */}
                     {item.href ? (
                       <Link
                         href={item.href}
@@ -174,10 +173,10 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* ── DONATE BUTTON ────────────────────────────────── */}
+          {/* ── DONATE BUTTON — links to /get-involved ────────── */}
           <div className="hidden md:block">
             <Link
-              href="/donate"
+              href="/get-involved"
               className="bg-[#6CC7FE] text-[#0D0D0D] font-bold text-sm
                 px-6 py-2.5 rounded-xl tracking-wide
                 hover:bg-[#45b8f5] transition-colors duration-200
@@ -215,7 +214,6 @@ export default function Navbar() {
             <div key={item.label}>
               {item.dropdown ? (
                 <>
-                  {/* Mobile — clicking label navigates if href exists */}
                   {item.href ? (
                     <div className="flex items-center justify-between">
                       <Link
@@ -300,9 +298,11 @@ export default function Navbar() {
               )}
             </div>
           ))}
+
+          {/* Mobile donate button — links to /get-involved */}
           <div className="pt-3">
             <Link
-              href="/donate"
+              href="/get-involved"
               onClick={() => setMobileOpen(false)}
               className="block w-full text-center bg-[#6CC7FE] text-[#0D0D0D]
                 font-bold text-sm py-3 rounded-xl tracking-wide

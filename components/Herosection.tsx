@@ -136,7 +136,7 @@ export default function HeroSection() {
           >
             {/* DONATE NOW — matches Figma */}
             <motion.a
-              href="/donate"
+              href="/what-we-do"
               whileHover={{ scale: 1.04, backgroundColor: '#45b8f5' }}
               whileTap={{ scale: 0.97 }}
               className="bg-[#6CC7FE] text-[#0D0D0D] font-black text-[13px]
@@ -148,18 +148,7 @@ export default function HeroSection() {
               Donate Now
             </motion.a>
 
-            {/* Learn More */}
-            <motion.a
-              href="/programs"
-              whileHover={{ borderColor: '#6CC7FE', color: '#6CC7FE', scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="border-2 border-gray-200 text-[#374151] font-bold text-[13px]
-                px-8 py-[14px] rounded-xl tracking-[0.06em] uppercase
-                transition-all duration-200"
-              style={{ fontFamily: "'Syne', sans-serif" }}
-            >
-              Our Programs
-            </motion.a>
+         
           </motion.div>
 
 
@@ -178,31 +167,6 @@ export default function HeroSection() {
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="w-3/4 h-3/4 rounded-full bg-[#6CC7FE]/06 blur-[80px]" />
           </div>
-
-          {/* Floating community ping dots */}
-          {[
-            { top: '20%', left: '40%', delay: 0.2 },
-            { top: '42%', left: '57%', delay: 0.6 },
-            { top: '60%', left: '44%', delay: 1.0 },
-            { top: '33%', left: '50%', delay: 1.4 },
-            { top: '52%', left: '36%', delay: 0.9 },
-          ].map((dot, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.2 + dot.delay, duration: 0.4, type: 'spring' }}
-              className="absolute z-10"
-              style={{ top: dot.top, left: dot.left }}
-            >
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full
-                  rounded-full bg-[#6CC7FE] opacity-50" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5
-                  bg-[#6CC7FE]" />
-              </span>
-            </motion.div>
-          ))}
 
           {/* Floating tooltip card */}
           <motion.div
