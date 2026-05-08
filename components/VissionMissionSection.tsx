@@ -167,9 +167,7 @@ export default function VisionMissionSection() {
                 To{' '}
                 <strong className="text-[#0D0D0D] font-bold">EMPOWER</strong>{' '}
                 young people to spearhead the development of their communities
-                through advocacy, social mobilization and mix interventions —
-                ensuring no young person is left behind because of where they
-                were born.
+                through advocacy, social mobilization and mix interventions.
               </p>
 
               <div className="flex flex-wrap gap-2">
@@ -337,8 +335,7 @@ export default function VisionMissionSection() {
               >
                 An Africa, where communities are developed by{' '}
                 <strong className="text-[#0D0D0D] font-bold">EMPOWERED</strong>{' '}
-                Africans — a continent where every young person has the tools,
-                opportunity, and confidence to build the future they deserve.
+                Africans.
               </p>
 
               {/* Vision values — Lucide icons replacing emojis */}

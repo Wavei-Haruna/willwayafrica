@@ -5,13 +5,14 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { ChevronRight, Heart, BookOpen, Briefcase, Vote } from 'lucide-react'
+import { ChevronRight, Heart, BookOpen, Briefcase, Leaf } from 'lucide-react'
 import HeroSection from '@/components/Herosection'
 import Navbar from '@/components/Navbar'
 import VisionMissionSection from '@/components/VissionMissionSection'
 import WhyInitiativeImpact from '@/components/Whyinitiativeimpact'
 import Footer from '@/components/footer'
 import ImpactProgramsInvolved from '@/components/Impactprogramsinvolved'
+
 
 export default function Home() {
   return (
@@ -193,9 +194,9 @@ function AboutSection() {
                 text: '#0D0D0D',
               },
               {
-                icon: <Vote className="w-5 h-5" />,
-                title: 'Governance',
-                desc: 'Bringing power back to the people',
+                icon: <Leaf className="w-5 h-5" />,
+                title: 'Environment',
+                desc: 'Restoring the environment for the people',
                 bg: '#6CC7FE',
                 text: '#fff',
               },

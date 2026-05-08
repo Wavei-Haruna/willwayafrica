@@ -6,7 +6,7 @@ import {
   BookOpen,
   Heart,
   Sprout,
-  Vote,
+  Leaf,
   ChevronRight,
   HandCoins,
   Users,
@@ -64,8 +64,8 @@ function SectionLabel({ text, dark = false }: { text: string; dark?: boolean }) 
 const STATS = [
   { num: '20,000+', label: 'Young People Reached',  desc: 'Through health programmes' },
   { num: '50+',     label: 'Rural Communities',      desc: 'Served across the region' },
-  { num: '247M',    label: 'Children Deprived',      desc: 'In Sub-Saharan Africa' },
-  { num: '47%',     label: 'Of The Extreme Poor',    desc: 'Are 18 years or younger' },
+  { num: '412M',    label: 'Children Deprived',      desc: 'In Sub-Saharan Africa' },
+  { num: '19%',     label: 'Of The Extreme Poor',    desc: 'Are 18 years or younger' },
 ]
 
 const PROGRAMS = [
@@ -88,10 +88,10 @@ const PROGRAMS = [
     desc: 'Supporting rural women and their communities with practical skills, seed funding, and mentorship to build livelihoods that last beyond any single programme.',
   },
   {
-    icon: <Vote className="w-6 h-6" />,
-    tag: 'Governance Program',
-    title: 'Democracy Belongs to Everyone',
-    desc: 'Community-centred civic education that builds real, lasting structures for transparency, accountability, and leadership — at the local level, for local people.',
+    icon: <Leaf className="w-6 h-6" />,
+    tag: 'Environment Program',
+    title: 'Environment Belongs to Everyone',
+    desc: 'Community-centred environmental action that builds lasting systems for sustainability, protection, and climate resilience at the local level.',
   },
 ]
 

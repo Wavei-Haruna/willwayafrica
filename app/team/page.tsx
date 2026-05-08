@@ -84,7 +84,7 @@ function TeamSection() {
   const executives = [
     {
       name: "Samuel Opoku",
-      title: "Executive Director & Founder",
+      title: "Executive Director, WillWay Africa",
       bio: "Samuel started WillWay Africa because he grew up seeing what poverty does to young people with limitless potential. This organisation exists to close the gap between the life they were born into and the life they deserve. With over 15 years of experience in development, he brings a strategic vision rooted in community realities.",
       image: "🎯"
     }

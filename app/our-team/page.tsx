@@ -10,12 +10,26 @@ import Navbar from '@/components/Navbar'
 // ── Team Data ──────────────────────────────────────────────────────
 const TEAM = [
   {
-    name: 'Samuel Ohene Kwapong',
-    role: 'Executive Director & Founder',
-    tag: 'Leadership',
-    bio: 'Samuel is a dynamic Project Management professional with over ten years\' progressively responsible experience in program development and monitoring, policy formulation, fiscal monitoring, personnel and grant administration. He is a Director (AD I) in the Ghana Education Service and serves on the Board of Alpha Engineering Services Ltd, Flugal Engineering, and Hagan Foundation. Samuel oversees all aspects of organizational management and strategic planning, including program design and execution, fundraising, financial oversight and external partnership development.',
-    featured: true,
-  },
+  name: 'Samuel Ohene Kwapong',
+  role: 'Executive Director, WillWay Africa',
+  tag: 'Leadership',
+
+  bio: `Samuel Ohene Kwapong is a visionary development leader with over 25 years of experience driving socio-economic transformation across Ghana. As Executive Director of WillWay Africa, he provides strategic leadership and advances the organisation’s mission to empower vulnerable communities through sustainable and inclusive development.`,
+
+  impact: `Under his leadership, WillWay Africa has expanded its impact through high-value programmes and international collaborations, including:`,
+
+  programs: [
+    "USAID Ghana Local Governance and Decentralization Program (LOGODEP) – strengthening local governance systems and enhancing citizen participation",
+    "MTV Staying Alive Ghana Projects – promoting youth-led health and wellness initiatives through media and community engagement",
+    "Ghana AIDS Commission Interventions – supporting HIV/AIDS awareness, prevention, and community-based outreach in rural Ghana",
+    "AfriCode Hub – advancing digital inclusion and equipping young people with technical skills",
+    "Women’s Enterprise Support – empowering women through vocational training, entrepreneurship, and financial literacy"
+  ],
+
+  closing: `Samuel is widely recognised for translating grassroots challenges into scalable, results-driven interventions with strong expertise in partnership development, programme design, and institutional growth. He is a firm advocate for African-led solutions that place women and youth at the centre of sustainable development.`,
+
+  featured: true,
+},
   {
     name: 'Miriam Nortey',
     role: 'Director, Grants Operations & Evaluation',
@@ -165,7 +179,7 @@ function FeaturedCard({ member, index }: { member: typeof TEAM[0]; index: number
           <div className="flex-1">
             <p className="text-[#6CC7FE] text-[11px] font-bold tracking-[0.22em] uppercase mb-1.5"
               style={{ fontFamily: "'DM Sans', sans-serif" }}>
-              Executive Director & Founder
+              Executive Director, WillWay Africa
             </p>
             <h3 className="text-[#0D0D0D] font-extrabold mb-1"
               style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.3rem, 2.5vw, 1.75rem)' }}>
@@ -178,10 +192,24 @@ function FeaturedCard({ member, index }: { member: typeof TEAM[0]; index: number
               <div className="h-[2px] w-4 bg-[#6CC7FE]/30 rounded-full" />
             </div>
 
-            <p className="text-[#6B7280] text-[14px] leading-[1.85] max-w-2xl"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}>
-              {member.bio}
-            </p>
+            <p className="text-[#6B7280] text-[14px] leading-[1.85] max-w-2xl mb-4"
+  style={{ fontFamily: "'DM Sans', sans-serif" }}>
+  {member.bio}
+</p>
+
+<p className="text-[#6B7280] text-[14px] leading-[1.85] max-w-2xl mb-4 font-semibold">
+  {member.impact}
+</p>
+
+<ul className="list-disc pl-5 space-y-2 text-[#6B7280] text-[13.5px] leading-[1.8] mb-4">
+  {member.programs?.map((item, i) => (
+    <li key={i}>{item}</li>
+  ))}
+</ul>
+
+<p className="text-[#6B7280] text-[14px] leading-[1.85] max-w-2xl">
+  {member.closing}
+</p>
 
             <div className="flex gap-3 mt-5">
               <a href="#" aria-label="LinkedIn"

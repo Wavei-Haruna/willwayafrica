@@ -13,7 +13,7 @@ import {
   GraduationCap,
   Stethoscope,
   HandCoins,
-  Vote,
+  Leaf,
   TrendingUp,
   ShieldCheck,
 } from 'lucide-react'
@@ -72,7 +72,7 @@ const INITIATIVE_IMAGES = [
     alt: 'Student studying at night',
   },
   {
-    url: '/Our-Initiative_2.jpg',
+    url: '/Our-Initiative_Health.jpg',
     alt: 'Healthcare workers in Africa',
   },
 ]
@@ -105,23 +105,28 @@ const IMPACT_POINTS = [
 const WHY_POINTS = [
   {
     icon: <TrendingUp className="w-5 h-5 text-[#6CC7FE]" />,
-    stat: '47%',
-    text: '47 percent of those living in extreme poverty are 18 years old or younger.',
+    stat: '19%',
+    text: 'About 19% of all children globally (roughly 1 in 5) live in extreme monetary poverty.',
   },
   {
     icon: <Users className="w-5 h-5 text-[#6CC7FE]" />,
-    stat: '247M',
-    text: 'In Sub-Saharan Africa alone, 247 million children are deprived of basic rights.',
+    stat: '412M',
+    text: 'That equals approximately 412 million children (age 0–17) living on less than about $3 per day.',
   },
   {
     icon: <ShieldCheck className="w-5 h-5 text-[#6CC7FE]" />,
     stat: null,
-    text: 'For children, poverty means being deprived in crucial aspects of their lives such as nutrition, health, water, education or shelter.',
+    text: ' Globally, about 900 million children experience multidimensional poverty (lack of basic needs such as food, water, education, and healthcare).',
   },
   {
     icon: <Globe className="w-5 h-5 text-[#6CC7FE]" />,
     stat: null,
-    text: "Africa's greatest assets are its young people.",
+    text: "Of the 412 million children living in extreme monetary poverty, the vast majority are concentrated in Sub-Saharan Africa and South Asia.",
+  },
+  {
+    icon: <TrendingUp className="w-5 h-5 text-[#6CC7FE]" />,
+    stat: '300+M',
+    text: 'In fact, Sub-Saharan Africa alone accounts for roughly 300+ million children in extreme poverty (about three-quarters of the global total).',
   },
 ]
 
@@ -252,7 +257,7 @@ export default function WhyInitiativeImpact() {
                   className="text-[#6CC7FE] text-2xl font-extrabold leading-none"
                   style={{ fontFamily: "'Syne', sans-serif" }}
                 >
-                  47%
+                  19%
                 </p>
                 <p
                   className="text-[#9CA3AF] text-[11px] mt-1 max-w-[120px] leading-tight"
@@ -369,7 +374,7 @@ export default function WhyInitiativeImpact() {
               { icon: <BookOpen className="w-4 h-4" />, label: 'Education' },
               { icon: <Heart className="w-4 h-4" />, label: 'Preventive Health' },
               { icon: <Sprout className="w-4 h-4" />, label: 'Sustainable Livelihoods' },
-              { icon: <Vote className="w-4 h-4" />, label: 'Governance' },
+              { icon: <Leaf className="w-5 h-5" />, label: 'Environment' },
             ].map(p => (
               <motion.span
                 key={p.label}
