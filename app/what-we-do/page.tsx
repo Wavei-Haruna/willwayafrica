@@ -6,7 +6,7 @@ import { motion, useInView, AnimatePresence, useScroll, useTransform } from 'fra
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/footer'
 
-// ─── Scroll reveal ──────────────────────────────────────────────────────────
+// ─── Scroll reveal ─────────────────────────────────────────────────
 function Reveal({
   children, className = '', delay = 0,
 }: {
@@ -25,7 +25,7 @@ function Reveal({
 }
 
 // ─── Counter ────────────────────────────────────────────────────────────────
-function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
+function Counter({ to, suffix = '', decimals = 0 }: { to: number; suffix?: string; decimals?: number }) {
   const [count, setCount] = useState(0)
   const ref = useRef<HTMLSpanElement>(null)
   const inView = useInView(ref, { once: true })
@@ -36,14 +36,14 @@ function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
     const id = setInterval(() => {
       start += step
       if (start >= to) { setCount(to); clearInterval(id) }
-      else setCount(Math.floor(start))
+      else setCount(parseFloat(start.toFixed(decimals)))
     }, 16)
     return () => clearInterval(id)
-  }, [inView, to])
-  return <span ref={ref}>{count.toLocaleString()}{suffix}</span>
+  }, [inView, to, decimals])
+  return <span ref={ref}>{decimals > 0 ? count.toFixed(decimals) : count.toLocaleString()}{suffix}</span>
 }
 
-// ─── Natural SVG icons — no lucide ─────────────────────────────────────────
+// ─── Natural SVG icons ─────────────────────────────────────────────────────
 const Icons = {
   education: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"
@@ -203,16 +203,121 @@ const PILLARS = [
   },
 ]
 
+// ─── UPDATED STATS — from PDF comments ─────────────────────────────────────
+// "Lets update the data":
+//  • 412M children in extreme monetary poverty globally
+//  • 900M children in multidimensional poverty
+//  • 247M children deprived in Sub-Saharan Africa
+//  • 47% of extreme poor are 18 or younger
 const STATS = [
-  { value: 20000, suffix: '+', label: 'Young people reached' },
-  { value: 50,    suffix: '+', label: 'Communities served' },
-  { value: 10,    suffix: '+', label: 'Years of impact' },
-  { value: 4,     suffix: '',  label: 'Programme pillars' },
+  { value: 412,  suffix: 'M+', label: 'Children in extreme poverty globally',     sub: 'Living on less than $3/day' },
+  { value: 900,  suffix: 'M',  label: 'Children in multidimensional poverty',      sub: 'Lacking food, water, education or healthcare' },
+  { value: 247,  suffix: 'M',  label: 'Children deprived in Sub-Saharan Africa',   sub: 'Denied basic rights' },
+  { value: 47,   suffix: '%',  label: 'Of the extreme poor are 18 or younger',     sub: 'Children at the heart of the crisis' },
 ]
+
+// ─── Expandable programme card ───────────────────────────────────────────────
+function ProgramCard({
+  prog, index, expandedCard, setExpandedCard,
+}: {
+  prog: { name: string; tagline: string; body: string }
+  index: number
+  expandedCard: string | null
+  setExpandedCard: (name: string | null) => void
+}) {
+  const isOpen = expandedCard === prog.name
+  return (
+    <motion.div
+      key={prog.name}
+      initial={{ opacity: 0, y: 28 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.09, ease: [0.22, 1, 0.36, 1] }}
+      className={`bg-white rounded-2xl border transition-all duration-300 flex flex-col overflow-hidden
+        ${isOpen
+          ? 'border-[#6CC7FE]/40 shadow-[0_16px_50px_rgba(108,199,254,0.15)]'
+          : 'border-gray-100 shadow-[0_2px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(108,199,254,0.10)] hover:border-[#6CC7FE]/20'
+        }`}
+    >
+      {/* Always-visible header — click to expand/collapse */}
+      <button
+        onClick={() => setExpandedCard(isOpen ? null : prog.name)}
+        className="w-full text-left px-7 pt-7 pb-5 flex items-start justify-between gap-4 group"
+      >
+        <div className="flex-1 min-w-0">
+          {/* Gold tagline */}
+          <p className="text-[#F5A623] text-[10px] font-bold tracking-[0.18em] uppercase mb-2">
+            {prog.tagline}
+          </p>
+          {/* Name */}
+          <h4 className="text-[#0D0D0D] font-extrabold text-[16px] leading-snug"
+            style={{ fontFamily: "'Syne', sans-serif" }}>
+            {prog.name}
+          </h4>
+        </div>
+
+        {/* Chevron */}
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center mt-1
+            transition-colors duration-200
+            ${isOpen ? 'bg-[#6CC7FE] text-[#0D0D0D]' : 'bg-gray-100 text-[#9CA3AF] group-hover:bg-[#6CC7FE]/10 group-hover:text-[#6CC7FE]'}`}
+        >
+          <svg viewBox="0 0 16 16" fill="currentColor" className="w-3.5 h-3.5">
+            <path fillRule="evenodd" d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z" clipRule="evenodd"/>
+          </svg>
+        </motion.div>
+      </button>
+
+      {/* Blue divider */}
+      <div className="mx-7 h-px bg-gradient-to-r from-[#6CC7FE]/20 via-[#6CC7FE]/10 to-transparent" />
+
+      {/* Expandable body */}
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="px-7 pt-5 pb-7">
+              <p className="text-[#6B7280] text-[13.5px] leading-[1.85]">
+                {prog.body}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Collapsed preview — one line, fades out — always shown when closed */}
+      <AnimatePresence initial={false}>
+        {!isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="px-7 pb-6 pt-4"
+          >
+            <p className="text-[#9CA3AF] text-[12.5px] leading-snug line-clamp-2">
+              {prog.body}
+            </p>
+            <p className="mt-3 text-[#6CC7FE] text-[11px] font-bold tracking-[0.15em] uppercase">
+              Read more ↓
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  )
+}
 
 // ════════════════════════════════════════════════════════════════════════════
 export default function WhatWeDoPage() {
   const [active, setActive] = useState('education')
+  const [expandedCard, setExpandedCard] = useState<string | null>(null)
   const current = PILLARS.find(p => p.id === active)!
 
   const heroRef = useRef(null)
@@ -314,23 +419,86 @@ export default function WhatWeDoPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════ STATS */}
+      {/* ══════════════════════════════════════════ MISSION BANNER */}
+      {/* PDF page 1: mission statement to be reviewed time and again */}
+      <section className="bg-[#050E16] border-b border-white/05">
+        <div className="max-w-7xl mx-auto px-6 lg:px-14 py-14">
+          <Reveal className="flex flex-col md:flex-row items-start md:items-center gap-8">
+            {/* Badge */}
+            <div className="flex-shrink-0">
+              <div className="w-14 h-14 rounded-2xl bg-[#6CC7FE] flex items-center justify-center
+                shadow-[0_4px_20px_rgba(108,199,254,0.45)]">
+                <span className="text-[#0D0D0D] font-black text-lg" style={{ fontFamily: "'Syne', sans-serif" }}>01</span>
+              </div>
+            </div>
+            {/* Text */}
+            <div className="flex-1">
+              <p className="text-[#9CA3AF] text-[11px] font-bold tracking-[0.22em] uppercase mb-3">Our Mission</p>
+              <p className="text-white/90 text-[17px] leading-[1.85] max-w-3xl">
+                To <span className="font-black text-white">EMPOWER</span> young people to spearhead the development of
+                their communities through advocacy, social mobilization and mix interventions —
+                ensuring no young person is left behind because of where they were born.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════ STATS — updated per PDF */}
+      {/* PDF: 412M, 900M, 247M, 47% */}
       <section className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-14">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
+
+          {/* Context headline */}
+          <Reveal className="pt-14 pb-10 text-center">
+            <div className="inline-flex items-center gap-2.5 mb-4
+              bg-[#6CC7FE]/08 border border-[#6CC7FE]/15 rounded-full px-5 py-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#6CC7FE] animate-pulse" />
+              <span className="text-[#6CC7FE] text-[11px] font-bold tracking-[0.22em] uppercase">
+                Why Young People &amp; Rural Women
+              </span>
+            </div>
+            <h2 className="text-[#0D0D0D] font-extrabold tracking-[-0.025em] leading-[1.1] mt-2"
+              style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.4rem, 2.5vw, 2rem)' }}>
+              The numbers demand urgent action.
+            </h2>
+          </Reveal>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100 border-t border-gray-100">
             {STATS.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.1}
-                className="flex flex-col items-center py-10 px-6 text-center">
-                <p className="text-[#0D0D0D] font-extrabold leading-none mb-2"
-                  style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.8rem, 3vw, 2.6rem)' }}>
+                className="flex flex-col items-center py-10 px-6 text-center group">
+                {/* Big number */}
+                <p className="font-extrabold leading-none mb-1"
+                  style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.8rem, 3vw, 2.6rem)',
+                    background: 'linear-gradient(135deg, #6CC7FE 0%, #45b8f5 100%)',
+                    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                   <Counter to={s.value} suffix={s.suffix} />
                 </p>
-                <p className="text-[#9CA3AF] text-[11px] tracking-widest uppercase">
+                {/* Label */}
+                <p className="text-[#0D0D0D] font-bold text-[12px] leading-snug mb-1 mt-2">
                   {s.label}
+                </p>
+                {/* Sub */}
+                <p className="text-[#9CA3AF] text-[10.5px] leading-snug tracking-wide">
+                  {s.sub}
                 </p>
               </Reveal>
             ))}
           </div>
+
+          {/* Context note below stats */}
+          <Reveal className="py-8 text-center border-t border-gray-100">
+            <p className="text-[#6B7280] text-[13px] leading-relaxed max-w-2xl mx-auto">
+              Of the 412 million children living in extreme monetary poverty, the vast majority are
+              concentrated in Sub-Saharan Africa and South Asia.{' '}
+              <span className="font-bold text-[#0D0D0D]">
+                Sub-Saharan Africa alone accounts for roughly 300+ million children in extreme poverty
+              </span>{' '}
+              — about three-quarters of the global total. Africa's greatest assets are its young people.
+            </p>
+          </Reveal>
+
         </div>
       </section>
 
@@ -343,7 +511,7 @@ export default function WhatWeDoPage() {
             {PILLARS.map(p => (
               <button
                 key={p.id}
-                onClick={() => setActive(p.id)}
+                onClick={() => { setActive(p.id); setExpandedCard(null) }}
                 className={`relative flex items-center gap-2.5 px-6 py-4
                   text-[13px] font-bold tracking-wide transition-all duration-200
                   ${active === p.id ? 'text-[#0D0D0D]' : 'text-[#9CA3AF] hover:text-[#6B7280]'}`}
@@ -451,40 +619,16 @@ export default function WhatWeDoPage() {
                 </div>
               </div>
 
-              {/* Programme cards — plain divs, no broken links */}
+              {/* Programme cards — expandable, no routing */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {current.programs.map((prog, i) => (
-                  <motion.div
+                  <ProgramCard
                     key={prog.name}
-                    initial={{ opacity: 0, y: 28 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: i * 0.09, ease: [0.22, 1, 0.36, 1] }}
-                    className="bg-white rounded-2xl p-7
-                      border border-gray-100
-                      shadow-[0_2px_16px_rgba(0,0,0,0.04)]
-                      hover:shadow-[0_12px_40px_rgba(108,199,254,0.12)]
-                      hover:border-[#6CC7FE]/20
-                      transition-all duration-300"
-                  >
-                    {/* Gold tagline */}
-                    <p className="text-[#F5A623] text-[10px] font-bold tracking-[0.18em] uppercase mb-3">
-                      {prog.tagline}
-                    </p>
-
-                    {/* Name */}
-                    <h4 className="text-[#0D0D0D] font-extrabold text-[16px] leading-snug mb-3"
-                      style={{ fontFamily: "'Syne', sans-serif" }}>
-                      {prog.name}
-                    </h4>
-
-                    {/* Blue divider */}
-                    <div className="h-px bg-gradient-to-r from-[#6CC7FE]/20 via-[#6CC7FE]/10 to-transparent mb-4" />
-
-                    {/* Body */}
-                    <p className="text-[#6B7280] text-[13.5px] leading-[1.85]">
-                      {prog.body}
-                    </p>
-                  </motion.div>
+                    prog={prog}
+                    index={i}
+                    expandedCard={expandedCard}
+                    setExpandedCard={setExpandedCard}
+                  />
                 ))}
               </div>
             </motion.div>
