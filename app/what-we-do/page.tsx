@@ -78,38 +78,131 @@ const Icons = {
         d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" />
     </svg>
   ),
+  check: (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2"
+      strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+      <path d="M3 8l3.5 3.5L13 4.5"/>
+    </svg>
+  ),
+  dollar: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+      strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <line x1="12" y1="1" x2="12" y2="23"/>
+      <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+    </svg>
+  ),
+  grad: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+      strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <path d="M12 3L2 8l10 5 10-5-10-5z"/>
+      <path d="M7 10.5v5a5 5 0 0010 0v-5"/>
+    </svg>
+  ),
+  handshake: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+      strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <path d="M9 11l3 3L22 4"/>
+      <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+    </svg>
+  ),
+  building: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+      strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <rect x="2" y="7" width="20" height="14" rx="2"/>
+      <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+    </svg>
+  ),
+  heart: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+      strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+    </svg>
+  ),
+  chart: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+      strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <line x1="18" y1="20" x2="18" y2="10"/>
+      <line x1="12" y1="20" x2="12" y2="4"/>
+      <line x1="6" y1="20" x2="6" y2="14"/>
+    </svg>
+  ),
+  megaphone: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+      strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+    </svg>
+  ),
+  recycle: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+      strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <polyline points="1 4 1 10 7 10"/>
+      <polyline points="23 20 23 14 17 14"/>
+      <path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/>
+    </svg>
+  ),
 }
 
-// ─── PILLARS ────────────────────────────────────────────────────────────────
+// ─── PILLARS — verbatim content from uploaded docx ──────────────────────────
 const PILLARS = [
   {
     id: 'education',
     num: '01',
     label: 'Education',
-    headline: 'Every child deserves a door worth opening.',
-    subline: 'We build it.',
-    body: 'From scholarships to coding labs to career counselling — our education programmes don\'t just keep children in school. They ignite ambition, cultivate talent, and produce the next generation of African changemakers.',
+    headline: 'Empowering Young Minds to Reach Their Full Potential',
+    subline: 'Building skills, confidence & opportunity.',
+    body: 'We inspire and equip children and youths to discover their talents through structured, supportive platforms. Our dynamic, lifelong education programs help them develop skills, confidence, and opportunities to build meaningful lives and contribute to a thriving, brighter Africa.',
     image: '/Education.jpg',
     programs: [
       {
         name: 'Chance for the Youth',
         tagline: 'Learn · Grow · Impact',
-        body: 'Full scholarship support for tertiary students from disadvantaged backgrounds — paired with structured training in entrepreneurship, volunteerism, and leadership so graduates give back to their communities.',
+        body: 'This program supports tertiary students from disadvantaged backgrounds in Ghana, enabling them to pursue their chosen degrees. In partnership with Kusomesa, a Canada-based charity, it nurtures students to become enterprising professionals who contribute to poverty reduction and Africa\'s development.\n\nAlongside their formal studies, students participate in structured training during vacations, focusing on entrepreneurship, volunteerism, and community engagement. Collaborating with industry partners, the program equips them with practical skills and prepares them for real-world opportunities beyond the classroom.',
+        hasEligibility: true,
+        eligibility: {
+          criteria: [
+            'Open to students seeking financial support for tertiary education in Ghana.',
+            'Applicants must demonstrate genuine need and commitment to their studies.',
+          ],
+          steps: [
+            { title: 'Formal Expression of Interest', body: 'Submit a request via email. Queries through other channels (phone, social media, personal outreach) must be followed up with a formal email.' },
+            { title: 'Request for Additional Information', body: 'WillWay may ask for further details if the initial submission is incomplete.' },
+            { title: 'Applicant Profile Form (APF)', body: 'Upon receipt of required information, students complete the APF.' },
+            { title: 'Background Verification', body: 'WillWay conducts checks to verify submitted details and assess genuine need.' },
+            { title: 'Nomination for Final Approval', body: 'Eligible applicants are submitted to Kusomesa for final selection based on the Board-approved number of beneficiaries.' },
+          ],
+        },
+        howYouCanHelp: [
+          { icon: 'dollar', label: 'Financial Support', items: ['Full or partial scholarships (tuition, accommodation, books)', 'Sponsor specific groups (girls, rural students, STEM learners)', 'Create endowment funds for long-term sustainability'] },
+          { icon: 'grad', label: 'Academic Support', items: ['Fund tutoring, mentoring, and remedial classes', 'Provide learning materials (laptops, books, internet access)', 'Support research, innovation, or project-based learning'] },
+          { icon: 'handshake', label: 'Mentorship & Career Development', items: ['Offer mentorship programmes (career guidance, life skills)', 'Organize internships, apprenticeships, or job placements', 'Host career talks, networking sessions, and exposure visits'] },
+          { icon: 'building', label: 'Institutional Capacity Building', items: ['Support schools with infrastructure (libraries, labs, classrooms)', 'Train teachers and programme staff', 'Improve programme monitoring and evaluation systems'] },
+          { icon: 'heart', label: 'Wellbeing & Holistic Support', items: ['Provide health insurance or medical support', 'Fund psychosocial support and counseling services', 'Support feeding programmes or stipends for basic needs'] },
+          { icon: 'chart', label: 'Monitoring, Evaluation & Impact', items: ['Fund data collection and impact assessments', 'Support digital systems for tracking student progress', 'Help scale successful models'] },
+          { icon: 'megaphone', label: 'Advocacy & Visibility', items: ['Promote the programme to attract more partners', 'Support awareness campaigns', 'Help mobilize additional funding or partnerships'] },
+          { icon: 'recycle', label: 'Sustainability & Alumni Support', items: ['Fund entrepreneurship or skills training for graduates', 'Support alumni networks', 'Provide seed funding for graduate-led initiatives'] },
+        ],
       },
       {
         name: 'AfriCode Hub',
         tagline: 'Bridging the Digital Divide',
-        body: 'Free mobile computing labs, ICT equipment, and teacher training brought directly to rural schools — turning examinable ICT from a gap into a genuine launchpad for young Africans.',
+        body: 'AfriCode Hub is a free, innovative mobile computing and IT skills program designed to bridge the digital divide between children in rural and urban communities across Africa. The initiative equips schools—especially in underserved areas—with the tools, resources, and training needed to integrate modern ICT into teaching and learning.\n\nMany schools in deprived communities lack the facilities and resources to teach ICT effectively, despite it being an examinable subject in the final year of Basic Education.',
+        bullets: [
+          'Mobile computing labs and ICT equipment',
+          'Teacher training in modern IT pedagogy',
+          'Hands-on coding, programming, and digital literacy sessions for students',
+          'Practical application of technology to support learning across subjects',
+        ],
+        bulletFooter: 'By empowering both students and schools, AfriCode Hub fosters digital inclusion, strengthens education outcomes, and prepares young Africans to thrive in a technology-driven world.',
       },
       {
         name: 'Career Guidance & Counselling',
         tagline: 'Shaping Futures',
-        body: 'Final-year Junior High students discover their strengths through mentorship, workshops, and exposure visits — choosing their Senior High path with confidence, not guesswork.',
+        body: 'WillWay empowers final-year Junior High students in Ghana to explore their strengths and talents, guiding them to select the right programs for Senior High School. The program supports learners, facilitators, and parents through mentorship, workshops, skills training, and exposure visits, helping students gain practical insights and confidence. Parents, teachers, and communities are actively engaged to foster holistic development. Your support provides the resources, tools, and opportunities that transform dreams into reality.',
       },
       {
         name: 'Education-for-All',
-        tagline: 'No Child Left Behind',
-        body: 'Materials, mentorship, and direct financial support for children kept out of school by poverty. Because access to learning should never depend on a bank balance.',
+        tagline: 'Every Child Deserves a Chance to Learn',
+        body: 'Education-for-All ensures every child of school-going age has access to education, targeting those out of school due to financial challenges and supporting disadvantaged students to stay in school. The program provides educational materials, mentorship, and guidance to help vulnerable children progress successfully. Your support can help transform lives and ensure that no child is left behind.',
       },
     ],
   },
@@ -117,9 +210,9 @@ const PILLARS = [
     id: 'health',
     num: '02',
     label: 'Preventive Health',
-    headline: 'Healthy youth build unbreakable communities.',
-    subline: 'We start with prevention.',
-    body: 'Guided by SDG 3, our health programmes deliver care where formal systems haven\'t reached — through mobile clinics, digital tools, and community champions who make health personal, local, and lasting.',
+    headline: 'Sustainable rural development starts with health.',
+    subline: 'Wellbeing for women, children & youth.',
+    body: 'At WillWay Africa, we believe sustainable rural development starts with health. Guided by SDG 3, we prioritize the wellbeing of women, children, and youth to build inclusive, healthy, and sustainable communities across Africa.',
     image: '/Preventive-Health.jpg',
     programs: [
       {
@@ -130,22 +223,29 @@ const PILLARS = [
       {
         name: 'Adolescent Health',
         tagline: 'Protecting Young Lives',
-        body: 'Sexual and reproductive health programmes grounded in accurate information and values-based education that respects and protects adolescent agency.',
+        body: 'To improve the sexual and reproductive health and overall wellbeing of adolescents through access to accurate information, preventive services, and values-based education that promotes safe and responsible decision-making.',
       },
       {
-        name: 'Preventive Screening & Early Detection',
+        name: 'Preventive Screening, Early Detection & Treatment',
         tagline: 'Catch It Early, Save a Life',
-        body: 'Mobile screening clinics, school-based detection, and digital follow-up targeting HIV/AIDS, cancer, and other conditions before they become crises.',
+        body: 'Preventive Screening, Early Detection, and Treatment focuses on identifying health risks early, enabling timely intervention, and preventing disease progression to improve overall community health outcomes.',
+        bullets: [
+          'Mobile health clinics',
+          'Community outreach campaigns',
+          'School-based screening programmes',
+          'Collaboration with local health facilities',
+          'Digital health tracking systems for follow-up',
+        ],
       },
       {
         name: 'WASH',
         tagline: 'Safe Water. Dignified Sanitation.',
-        body: 'The WillWay Safe Water, Safe Life Initiative improves water access, promotes hygienic practices, and builds sanitation infrastructure in rural and peri-urban communities.',
+        body: 'WillWay Safe Water, Safe Life Initiative — WillWay Africa\'s Water, Sanitation, and Hygiene (WASH) activity focuses on improving community health by ensuring access to safe water, promoting proper sanitation, and encouraging hygienic practices in rural and peri-urban communities.',
       },
       {
-        name: 'Digital Health & mHealth',
+        name: 'Digital Health & mHealth Programs',
         tagline: 'Technology That Cares',
-        body: 'Simple, scalable mobile technology extending preventive care, strengthening community engagement, and ensuring health monitoring where broadband is scarce.',
+        body: 'WillWay Africa\'s Digital Health & mHealth Programme uses simple and scalable technology to strengthen preventive healthcare delivery, improve community engagement, and ensure continuous care through data-driven and mobile-based solutions.',
       },
     ],
   },
@@ -153,9 +253,9 @@ const PILLARS = [
     id: 'livelihoods',
     num: '03',
     label: 'Sustainable Livelihoods',
-    headline: 'Economic freedom isn\'t given.',
-    subline: 'We help people earn it — permanently.',
-    body: 'Women head a third of all households and face disproportionate poverty. Our livelihood programmes meet them where they are: practical skills, seed capital, mentorship, and markets that create income that lasts.',
+    headline: 'Empowering vulnerable groups for lasting income security.',
+    subline: 'Skills, enterprise & resilience.',
+    body: 'This is a well-tailored programme designed to address the specific needs of target communities by empowering vulnerable groups to achieve lasting income security and resilience through skills development, sustainable entrepreneurship, and inclusive economic opportunities.',
     image: '/Sustainable-Livelihoods.jpg',
     programs: [
       {
@@ -171,7 +271,8 @@ const PILLARS = [
       {
         name: "WillWay Centre for Women's Skills & Enterprise",
         tagline: "A Hub for Women's Potential",
-        body: 'A purpose-built vocational hub on a 5-acre site in Ghana\'s Central Region — agribusiness, crafts, and catering training paired with a revolving credit scheme. Phase 1 reaches 100+ women, scaling to 200+.',
+        body: 'WillWay Africa is launching a flagship initiative—the WillWay Centre for Women\'s Skills & Enterprise (WCWSE)—a purpose-built multi-skilled vocational and enterprise hub in Ghana\'s Central Region, situated on a 5-acre site, designed to unlock the economic potential of women and girls.\n\nThe Centre will deliver hands-on training in agribusiness, crafts, and catering, integrated with entrepreneurship development, mentorship, and access to a revolving credit scheme. This holistic approach ensures that beneficiaries transition beyond training into sustainable income generation and enterprise growth.\n\nDesigned for long-term impact and financial sustainability, the Centre will incorporate income-generating production units in food processing and crafts, creating a self-sustaining model that supports ongoing operations and future expansion.\n\nWith an initial reach of 100 women and girls, scaling to 200+, this 18–24 month Phase 1 investment presents a compelling opportunity for donors to support infrastructure development, skills acquisition, and women\'s economic empowerment through a scalable and sustainable model that delivers measurable impact.',
+        isFlagship: true,
       },
       {
         name: 'Skills Training & Microenterprise Development',
@@ -184,18 +285,18 @@ const PILLARS = [
     id: 'environment',
     num: '04',
     label: 'Environment',
-    headline: 'The land feeds us.',
-    subline: 'We protect it together.',
-    body: 'Community-driven environmental programmes that raise awareness, manage water resources, and turn young Africans into stewards — not bystanders — of the ecosystems their futures depend on.',
+    headline: 'Community-driven projects protecting natural resources.',
+    subline: 'Sustainability for future generations.',
+    body: 'At WillWay Africa, we design and implement community-driven environmental projects that promote sustainability, improve public health, and empower local populations to protect their natural resources for future generations.',
     image: '/Environment.jpg',
     programs: [
       {
-        name: 'Environmental Education & Awareness',
+        name: 'Environmental Education & Awareness Programs',
         tagline: 'Know It. Protect It.',
         body: 'Community-based education on climate change, biodiversity, and sustainable land use — turning knowledge into grassroots action that protects Africa\'s natural resources.',
       },
       {
-        name: 'Water Resource Management',
+        name: 'Water Resource Management Programs',
         tagline: 'Clean Water. Thriving Communities.',
         body: 'Sustainable watershed management and safe water access programmes protecting natural water sources and the rural communities who depend on them every day.',
       },
@@ -203,12 +304,6 @@ const PILLARS = [
   },
 ]
 
-// ─── UPDATED STATS — from PDF comments ─────────────────────────────────────
-// "Lets update the data":
-//  • 412M children in extreme monetary poverty globally
-//  • 900M children in multidimensional poverty
-//  • 247M children deprived in Sub-Saharan Africa
-//  • 47% of extreme poor are 18 or younger
 const STATS = [
   { value: 412,  suffix: 'M+', label: 'Children in extreme poverty globally',     sub: 'Living on less than $3/day' },
   { value: 900,  suffix: 'M',  label: 'Children in multidimensional poverty',      sub: 'Lacking food, water, education or healthcare' },
@@ -216,16 +311,72 @@ const STATS = [
   { value: 47,   suffix: '%',  label: 'Of the extreme poor are 18 or younger',     sub: 'Children at the heart of the crisis' },
 ]
 
+// ─── Eligibility Step ────────────────────────────────────────────────────────
+function EligibilityStep({ step, index }: { step: { title: string; body: string }; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -16 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="flex gap-4 group"
+    >
+      <div className="flex-shrink-0 flex flex-col items-center">
+        <div className="w-8 h-8 rounded-full bg-[#6CC7FE] flex items-center justify-center
+          text-[#0D0D0D] font-black text-[12px] shadow-[0_3px_12px_rgba(108,199,254,0.4)]"
+          style={{ fontFamily: "'Syne', sans-serif" }}>
+          {index + 1}
+        </div>
+        {index < 4 && <div className="w-px flex-1 bg-[#6CC7FE]/20 mt-1" />}
+      </div>
+      <div className="pb-5">
+        <p className="text-[#0D0D0D] font-bold text-[13px] mb-1" style={{ fontFamily: "'Syne', sans-serif" }}>{step.title}</p>
+        <p className="text-[#6B7280] text-[12.5px] leading-[1.75]">{step.body}</p>
+      </div>
+    </motion.div>
+  )
+}
+
+// ─── How You Can Help Grid ───────────────────────────────────────────────────
+function HelpCategoryCard({ cat }: { cat: { icon: string; label: string; items: string[] } }) {
+  const iconEl = Icons[cat.icon as keyof typeof Icons] ?? Icons.check
+  return (
+    <div className="bg-gradient-to-br from-[#F8FBFF] to-white rounded-2xl border border-[#6CC7FE]/15
+      p-5 hover:border-[#6CC7FE]/40 hover:shadow-[0_8px_32px_rgba(108,199,254,0.12)]
+      transition-all duration-300 group">
+      <div className="flex items-center gap-2.5 mb-3">
+        <div className="w-8 h-8 rounded-lg bg-[#6CC7FE]/10 text-[#6CC7FE] flex items-center justify-center
+          group-hover:bg-[#6CC7FE] group-hover:text-[#0D0D0D] transition-colors duration-200">
+          {iconEl}
+        </div>
+        <p className="text-[#0D0D0D] font-extrabold text-[12px] leading-tight"
+          style={{ fontFamily: "'Syne', sans-serif" }}>{cat.label}</p>
+      </div>
+      <ul className="space-y-1.5">
+        {cat.items.map(item => (
+          <li key={item} className="flex items-start gap-2 text-[11.5px] text-[#6B7280] leading-snug">
+            <span className="flex-shrink-0 text-[#F5A623] mt-[2px]">
+              <svg viewBox="0 0 8 8" fill="currentColor" className="w-2 h-2"><circle cx="4" cy="4" r="4"/></svg>
+            </span>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 // ─── Expandable programme card ───────────────────────────────────────────────
 function ProgramCard({
   prog, index, expandedCard, setExpandedCard,
 }: {
-  prog: { name: string; tagline: string; body: string }
+  prog: { name: string; tagline: string; body: string; bullets?: string[]; bulletFooter?: string; hasEligibility?: boolean; eligibility?: { criteria: string[]; steps: { title: string; body: string }[] }; howYouCanHelp?: { icon: string; label: string; items: string[] }[]; isFlagship?: boolean }
   index: number
   expandedCard: string | null
   setExpandedCard: (name: string | null) => void
 }) {
   const isOpen = expandedCard === prog.name
+  const paragraphs = prog.body.split('\n\n').filter(Boolean)
+
   return (
     <motion.div
       key={prog.name}
@@ -233,29 +384,37 @@ function ProgramCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.09, ease: [0.22, 1, 0.36, 1] }}
       className={`bg-white rounded-2xl border transition-all duration-300 flex flex-col overflow-hidden
+        ${prog.isFlagship ? 'md:col-span-2' : ''}
         ${isOpen
           ? 'border-[#6CC7FE]/40 shadow-[0_16px_50px_rgba(108,199,254,0.15)]'
           : 'border-gray-100 shadow-[0_2px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(108,199,254,0.10)] hover:border-[#6CC7FE]/20'
         }`}
     >
-      {/* Always-visible header — click to expand/collapse */}
+      {/* Flagship badge */}
+      {prog.isFlagship && (
+        <div className="bg-gradient-to-r from-[#F5A623] to-[#f7bc56] px-7 py-2.5 flex items-center gap-2">
+          <svg viewBox="0 0 16 16" fill="currentColor" className="w-3.5 h-3.5 text-[#0D0D0D]">
+            <path d="M8 1l1.854 3.756L14 5.517l-3 2.923.708 4.126L8 10.5l-3.708 1.953.708-4.126L2 5.517l4.146-.761L8 1z"/>
+          </svg>
+          <span className="text-[#0D0D0D] text-[10px] font-black tracking-[0.2em] uppercase"
+            style={{ fontFamily: "'Syne', sans-serif" }}>Flagship Initiative</span>
+        </div>
+      )}
+
+      {/* Always-visible header */}
       <button
         onClick={() => setExpandedCard(isOpen ? null : prog.name)}
         className="w-full text-left px-7 pt-7 pb-5 flex items-start justify-between gap-4 group"
       >
         <div className="flex-1 min-w-0">
-          {/* Gold tagline */}
           <p className="text-[#F5A623] text-[10px] font-bold tracking-[0.18em] uppercase mb-2">
             {prog.tagline}
           </p>
-          {/* Name */}
           <h4 className="text-[#0D0D0D] font-extrabold text-[16px] leading-snug"
             style={{ fontFamily: "'Syne', sans-serif" }}>
             {prog.name}
           </h4>
         </div>
-
-        {/* Chevron */}
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -269,7 +428,6 @@ function ProgramCard({
         </motion.div>
       </button>
 
-      {/* Blue divider */}
       <div className="mx-7 h-px bg-gradient-to-r from-[#6CC7FE]/20 via-[#6CC7FE]/10 to-transparent" />
 
       {/* Expandable body */}
@@ -282,16 +440,99 @@ function ProgramCard({
             transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="px-7 pt-5 pb-7">
-              <p className="text-[#6B7280] text-[13.5px] leading-[1.85]">
-                {prog.body}
-              </p>
+            <div className="px-7 pt-5 pb-7 space-y-4">
+              {/* Body paragraphs */}
+              {paragraphs.map((para, i) => (
+                <p key={i} className="text-[#6B7280] text-[13.5px] leading-[1.85]">{para}</p>
+              ))}
+
+              {/* Bullet list */}
+              {prog.bullets && (
+                <ul className="space-y-2 pt-1">
+                  {prog.bullets.map(b => (
+                    <li key={b} className="flex items-start gap-2.5 text-[13px] text-[#4B5563]">
+                      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#6CC7FE]/10 text-[#6CC7FE]
+                        flex items-center justify-center mt-0.5">
+                        {Icons.check}
+                      </span>
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {prog.bulletFooter && (
+                <p className="text-[#6B7280] text-[13px] leading-[1.85] pt-1 italic">{prog.bulletFooter}</p>
+              )}
+
+              {/* Eligibility section */}
+              {prog.hasEligibility && prog.eligibility && (
+                <div className="pt-4 space-y-6">
+                  {/* Eligibility criteria */}
+                  <div className="bg-[#F8FBFF] rounded-2xl border border-[#6CC7FE]/15 p-5">
+                    <p className="text-[#6CC7FE] text-[10px] font-black tracking-[0.2em] uppercase mb-3"
+                      style={{ fontFamily: "'Syne', sans-serif" }}>
+                      WillWay Scholarship — Eligibility
+                    </p>
+                    <ul className="space-y-2">
+                      {prog.eligibility.criteria.map(c => (
+                        <li key={c} className="flex items-start gap-2 text-[13px] text-[#4B5563] leading-snug">
+                          <span className="flex-shrink-0 text-[#F5A623] mt-0.5">
+                            <svg viewBox="0 0 8 8" fill="currentColor" className="w-2 h-2"><circle cx="4" cy="4" r="4"/></svg>
+                          </span>
+                          {c}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Application Steps */}
+                  <div>
+                    <p className="text-[#0D0D0D] font-black text-[12px] tracking-[0.15em] uppercase mb-4"
+                      style={{ fontFamily: "'Syne', sans-serif" }}>
+                      Application Steps
+                    </p>
+                    <div className="space-y-0">
+                      {prog.eligibility.steps.map((step, si) => (
+                        <EligibilityStep key={step.title} step={step} index={si} />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* How You Can Help */}
+                  {prog.howYouCanHelp && (
+                    <div>
+                      <p className="text-[#0D0D0D] font-black text-[12px] tracking-[0.15em] uppercase mb-4"
+                        style={{ fontFamily: "'Syne', sans-serif" }}>
+                        How You Can Help
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {prog.howYouCanHelp.map(cat => (
+                          <HelpCategoryCard key={cat.label} cat={cat} />
+                        ))}
+                      </div>
+                      <div className="mt-5 rounded-xl bg-[#050E16] p-4 flex items-center justify-between gap-4">
+                        <p className="text-white/70 text-[12px] leading-snug">
+                          Ready to support? Complete the{' '}
+                          <span className="text-[#6CC7FE] font-bold">Donor Support Form</span> to get started.
+                        </p>
+                        <a href="/donate"
+                          className="flex-shrink-0 bg-[#6CC7FE] text-[#0D0D0D] font-black text-[11px]
+                            px-5 py-2.5 rounded-lg tracking-[0.1em] uppercase whitespace-nowrap
+                            hover:bg-[#45b8f5] transition-colors duration-200"
+                          style={{ fontFamily: "'Syne', sans-serif" }}>
+                          Donate →
+                        </a>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Collapsed preview — one line, fades out — always shown when closed */}
+      {/* Collapsed preview */}
       <AnimatePresence initial={false}>
         {!isOpen && (
           <motion.div
@@ -302,7 +543,7 @@ function ProgramCard({
             className="px-7 pb-6 pt-4"
           >
             <p className="text-[#9CA3AF] text-[12.5px] leading-snug line-clamp-2">
-              {prog.body}
+              {paragraphs[0]}
             </p>
             <p className="mt-3 text-[#6CC7FE] text-[11px] font-bold tracking-[0.15em] uppercase">
               Read more ↓
@@ -351,7 +592,6 @@ export default function WhatWeDoPage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-14 py-28">
           <div className="max-w-3xl">
-
             <motion.div
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -420,18 +660,15 @@ export default function WhatWeDoPage() {
       </section>
 
       {/* ══════════════════════════════════════════ MISSION BANNER */}
-      {/* PDF page 1: mission statement to be reviewed time and again */}
       <section className="bg-[#050E16] border-b border-white/05">
         <div className="max-w-7xl mx-auto px-6 lg:px-14 py-14">
           <Reveal className="flex flex-col md:flex-row items-start md:items-center gap-8">
-            {/* Badge */}
             <div className="flex-shrink-0">
               <div className="w-14 h-14 rounded-2xl bg-[#6CC7FE] flex items-center justify-center
                 shadow-[0_4px_20px_rgba(108,199,254,0.45)]">
                 <span className="text-[#0D0D0D] font-black text-lg" style={{ fontFamily: "'Syne', sans-serif" }}>01</span>
               </div>
             </div>
-            {/* Text */}
             <div className="flex-1">
               <p className="text-[#9CA3AF] text-[11px] font-bold tracking-[0.22em] uppercase mb-3">Our Mission</p>
               <p className="text-white/90 text-[17px] leading-[1.85] max-w-3xl">
@@ -444,12 +681,9 @@ export default function WhatWeDoPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════ STATS — updated per PDF */}
-      {/* PDF: 412M, 900M, 247M, 47% */}
+      {/* ══════════════════════════════════════════ STATS */}
       <section className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-14">
-
-          {/* Context headline */}
           <Reveal className="pt-14 pb-10 text-center">
             <div className="inline-flex items-center gap-2.5 mb-4
               bg-[#6CC7FE]/08 border border-[#6CC7FE]/15 rounded-full px-5 py-2">
@@ -468,26 +702,18 @@ export default function WhatWeDoPage() {
             {STATS.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.1}
                 className="flex flex-col items-center py-10 px-6 text-center group">
-                {/* Big number */}
                 <p className="font-extrabold leading-none mb-1"
                   style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.8rem, 3vw, 2.6rem)',
                     background: 'linear-gradient(135deg, #6CC7FE 0%, #45b8f5 100%)',
                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                   <Counter to={s.value} suffix={s.suffix} />
                 </p>
-                {/* Label */}
-                <p className="text-[#0D0D0D] font-bold text-[12px] leading-snug mb-1 mt-2">
-                  {s.label}
-                </p>
-                {/* Sub */}
-                <p className="text-[#9CA3AF] text-[10.5px] leading-snug tracking-wide">
-                  {s.sub}
-                </p>
+                <p className="text-[#0D0D0D] font-bold text-[12px] leading-snug mb-1 mt-2">{s.label}</p>
+                <p className="text-[#9CA3AF] text-[10.5px] leading-snug tracking-wide">{s.sub}</p>
               </Reveal>
             ))}
           </div>
 
-          {/* Context note below stats */}
           <Reveal className="py-8 text-center border-t border-gray-100">
             <p className="text-[#6B7280] text-[13px] leading-relaxed max-w-2xl mx-auto">
               Of the 412 million children living in extreme monetary poverty, the vast majority are
@@ -498,7 +724,6 @@ export default function WhatWeDoPage() {
               — about three-quarters of the global total. Africa's greatest assets are its young people.
             </p>
           </Reveal>
-
         </div>
       </section>
 
@@ -544,8 +769,6 @@ export default function WhatWeDoPage() {
             >
               {/* Intro grid */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-
-                {/* Text */}
                 <div>
                   <div className="flex items-center gap-3 mb-6">
                     <span className="font-black select-none leading-none"
@@ -562,19 +785,16 @@ export default function WhatWeDoPage() {
                   </h2>
                   <h2 className="font-extrabold leading-[1.1] tracking-[-0.025em] mb-6"
                     style={{ fontFamily: "'Syne', sans-serif",
-                      fontSize: 'clamp(1.7rem, 3.2vw, 2.6rem)', color: '#6CC7FE' }}>
+                      fontSize: 'clamp(1.4rem, 2.4vw, 1.9rem)', color: '#6CC7FE' }}>
                     {current.subline}
                   </h2>
 
-                  {/* Gold rule */}
                   <div className="flex items-center gap-2 mb-6">
                     <div className="h-[3px] w-10 rounded-full bg-[#F5A623]" />
                     <div className="h-[3px] w-4 rounded-full bg-[#F5A623]/30" />
                   </div>
 
-                  <p className="text-[#6B7280] text-[15px] leading-[1.9] mb-8">
-                    {current.body}
-                  </p>
+                  <p className="text-[#6B7280] text-[15px] leading-[1.9] mb-8">{current.body}</p>
 
                   <motion.a
                     href="/donate"
@@ -619,12 +839,12 @@ export default function WhatWeDoPage() {
                 </div>
               </div>
 
-              {/* Programme cards — expandable, no routing */}
+              {/* Programme cards — expandable */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {current.programs.map((prog, i) => (
                   <ProgramCard
                     key={prog.name}
-                    prog={prog}
+                    prog={prog as any}
                     index={i}
                     expandedCard={expandedCard}
                     setExpandedCard={setExpandedCard}
@@ -639,7 +859,6 @@ export default function WhatWeDoPage() {
       {/* ══════════════════════════════════════════ ALL PILLARS */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-14">
-
           <Reveal className="text-center mb-16">
             <div className="inline-flex items-center gap-2.5 mb-5
               bg-[#6CC7FE]/08 border border-[#6CC7FE]/15 rounded-full px-5 py-2">
@@ -668,29 +887,22 @@ export default function WhatWeDoPage() {
                     hover:shadow-[0_12px_40px_rgba(108,199,254,0.12)]
                     transition-all duration-300 overflow-hidden"
                 >
-                  {/* Ghost number */}
                   <span className="absolute top-3 right-5 text-5xl font-black select-none leading-none
                     text-[#6CC7FE] opacity-[0.06]"
                     style={{ fontFamily: "'Syne', sans-serif" }}>
                     {pillar.num}
                   </span>
-
-                  {/* Blue → gold top bar on hover */}
                   <div className="absolute top-0 left-0 right-0 h-[2.5px] rounded-full
                     bg-gradient-to-r from-[#6CC7FE] to-[#F5A623]
                     scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left" />
-
-                  {/* Icon */}
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5
                     bg-[#6CC7FE]/10 text-[#6CC7FE]">
                     {Icons[pillar.id as keyof typeof Icons]}
                   </div>
-
                   <h4 className="text-[#0D0D0D] font-extrabold text-[15px] mb-4"
                     style={{ fontFamily: "'Syne', sans-serif" }}>
                     {pillar.label}
                   </h4>
-
                   <ul className="space-y-2.5">
                     {pillar.programs.map(prog => (
                       <li key={prog.name}
@@ -700,7 +912,6 @@ export default function WhatWeDoPage() {
                       </li>
                     ))}
                   </ul>
-
                   <p className="mt-5 text-[11px] font-bold tracking-wide uppercase
                     text-[#9CA3AF] group-hover:text-[#6CC7FE] transition-colors duration-200"
                     style={{ fontFamily: "'Syne', sans-serif" }}>
