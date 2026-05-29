@@ -6,7 +6,7 @@ import { motion, useInView, AnimatePresence, useScroll, useTransform } from 'fra
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/footer'
 
-// ─── Scroll reveal ─────────────────────────────────────────────────
+// ─── Scroll reveal ──────────────────────────────────────────────────────────
 function Reveal({
   children, className = '', delay = 0,
 }: {
@@ -43,7 +43,7 @@ function Counter({ to, suffix = '', decimals = 0 }: { to: number; suffix?: strin
   return <span ref={ref}>{decimals > 0 ? count.toFixed(decimals) : count.toLocaleString()}{suffix}</span>
 }
 
-// ─── Natural SVG icons ─────────────────────────────────────────────────────
+// ─── SVG Icons ──────────────────────────────────────────────────────────────
 const Icons = {
   education: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"
@@ -142,7 +142,14 @@ const Icons = {
   ),
 }
 
-// ─── PILLARS — verbatim content from uploaded docx ──────────────────────────
+// ─── ACCENT COLOR — single source of truth ──────────────────────────────────
+// Your globals.css defines --chart-1 as the warm amber/yellow accent.
+// We use CSS vars throughout; the only inline colour is the accent for decorative
+// elements that can't be expressed as a Tailwind CSS-var utility.
+// Blue  → var(--chart-2)  (oklch(0.6 0.118 184.704) ≈ sky blue)
+// Amber → var(--chart-1)  (oklch(0.646 0.222 41.116) ≈ amber/gold)
+// Both come from globals.css — no hardcoded hex.
+
 const PILLARS = [
   {
     id: 'education',
@@ -172,14 +179,14 @@ const PILLARS = [
           ],
         },
         howYouCanHelp: [
-          { icon: 'dollar', label: 'Financial Support', items: ['Full or partial scholarships (tuition, accommodation, books)', 'Sponsor specific groups (girls, rural students, STEM learners)', 'Create endowment funds for long-term sustainability'] },
-          { icon: 'grad', label: 'Academic Support', items: ['Fund tutoring, mentoring, and remedial classes', 'Provide learning materials (laptops, books, internet access)', 'Support research, innovation, or project-based learning'] },
-          { icon: 'handshake', label: 'Mentorship & Career Development', items: ['Offer mentorship programmes (career guidance, life skills)', 'Organize internships, apprenticeships, or job placements', 'Host career talks, networking sessions, and exposure visits'] },
-          { icon: 'building', label: 'Institutional Capacity Building', items: ['Support schools with infrastructure (libraries, labs, classrooms)', 'Train teachers and programme staff', 'Improve programme monitoring and evaluation systems'] },
-          { icon: 'heart', label: 'Wellbeing & Holistic Support', items: ['Provide health insurance or medical support', 'Fund psychosocial support and counseling services', 'Support feeding programmes or stipends for basic needs'] },
-          { icon: 'chart', label: 'Monitoring, Evaluation & Impact', items: ['Fund data collection and impact assessments', 'Support digital systems for tracking student progress', 'Help scale successful models'] },
-          { icon: 'megaphone', label: 'Advocacy & Visibility', items: ['Promote the programme to attract more partners', 'Support awareness campaigns', 'Help mobilize additional funding or partnerships'] },
-          { icon: 'recycle', label: 'Sustainability & Alumni Support', items: ['Fund entrepreneurship or skills training for graduates', 'Support alumni networks', 'Provide seed funding for graduate-led initiatives'] },
+          { icon: 'dollar',     label: 'Financial Support',              items: ['Full or partial scholarships (tuition, accommodation, books)', 'Sponsor specific groups (girls, rural students, STEM learners)', 'Create endowment funds for long-term sustainability'] },
+          { icon: 'grad',       label: 'Academic Support',               items: ['Fund tutoring, mentoring, and remedial classes', 'Provide learning materials (laptops, books, internet access)', 'Support research, innovation, or project-based learning'] },
+          { icon: 'handshake',  label: 'Mentorship & Career Development',items: ['Offer mentorship programmes (career guidance, life skills)', 'Organize internships, apprenticeships, or job placements', 'Host career talks, networking sessions, and exposure visits'] },
+          { icon: 'building',   label: 'Institutional Capacity Building',items: ['Support schools with infrastructure (libraries, labs, classrooms)', 'Train teachers and programme staff', 'Improve programme monitoring and evaluation systems'] },
+          { icon: 'heart',      label: 'Wellbeing & Holistic Support',   items: ['Provide health insurance or medical support', 'Fund psychosocial support and counseling services', 'Support feeding programmes or stipends for basic needs'] },
+          { icon: 'chart',      label: 'Monitoring, Evaluation & Impact',items: ['Fund data collection and impact assessments', 'Support digital systems for tracking student progress', 'Help scale successful models'] },
+          { icon: 'megaphone',  label: 'Advocacy & Visibility',          items: ['Promote the programme to attract more partners', 'Support awareness campaigns', 'Help mobilize additional funding or partnerships'] },
+          { icon: 'recycle',    label: 'Sustainability & Alumni Support', items: ['Fund entrepreneurship or skills training for graduates', 'Support alumni networks', 'Provide seed funding for graduate-led initiatives'] },
         ],
       },
       {
@@ -240,12 +247,12 @@ const PILLARS = [
       {
         name: 'WASH',
         tagline: 'Safe Water. Dignified Sanitation.',
-        body: 'WillWay Safe Water, Safe Life Initiative — WillWay Africa\'s Water, Sanitation, and Hygiene (WASH) activity focuses on improving community health by ensuring access to safe water, promoting proper sanitation, and encouraging hygienic practices in rural and peri-urban communities.',
+        body: "WillWay Safe Water, Safe Life Initiative — WillWay Africa's Water, Sanitation, and Hygiene (WASH) activity focuses on improving community health by ensuring access to safe water, promoting proper sanitation, and encouraging hygienic practices in rural and peri-urban communities.",
       },
       {
         name: 'Digital Health & mHealth Programs',
         tagline: 'Technology That Cares',
-        body: 'WillWay Africa\'s Digital Health & mHealth Programme uses simple and scalable technology to strengthen preventive healthcare delivery, improve community engagement, and ensure continuous care through data-driven and mobile-based solutions.',
+        body: "WillWay Africa's Digital Health & mHealth Programme uses simple and scalable technology to strengthen preventive healthcare delivery, improve community engagement, and ensure continuous care through data-driven and mobile-based solutions.",
       },
     ],
   },
@@ -261,7 +268,7 @@ const PILLARS = [
       {
         name: 'Empowering Hands',
         tagline: 'Skills That Pay',
-        body: 'Vocational and entrepreneurial skills training designed around the real rhythms of rural women\'s lives — low-capital, scalable, and immediately income-generating.',
+        body: "Vocational and entrepreneurial skills training designed around the real rhythms of rural women's lives — low-capital, scalable, and immediately income-generating.",
       },
       {
         name: 'StartRite Africa Initiative',
@@ -271,7 +278,7 @@ const PILLARS = [
       {
         name: "WillWay Centre for Women's Skills & Enterprise",
         tagline: "A Hub for Women's Potential",
-        body: 'WillWay Africa is launching a flagship initiative—the WillWay Centre for Women\'s Skills & Enterprise (WCWSE)—a purpose-built multi-skilled vocational and enterprise hub in Ghana\'s Central Region, situated on a 5-acre site, designed to unlock the economic potential of women and girls.\n\nThe Centre will deliver hands-on training in agribusiness, crafts, and catering, integrated with entrepreneurship development, mentorship, and access to a revolving credit scheme. This holistic approach ensures that beneficiaries transition beyond training into sustainable income generation and enterprise growth.\n\nDesigned for long-term impact and financial sustainability, the Centre will incorporate income-generating production units in food processing and crafts, creating a self-sustaining model that supports ongoing operations and future expansion.\n\nWith an initial reach of 100 women and girls, scaling to 200+, this 18–24 month Phase 1 investment presents a compelling opportunity for donors to support infrastructure development, skills acquisition, and women\'s economic empowerment through a scalable and sustainable model that delivers measurable impact.',
+        body: "WillWay Africa is launching a flagship initiative—the WillWay Centre for Women's Skills & Enterprise (WCWSE)—a purpose-built multi-skilled vocational and enterprise hub in Ghana's Central Region, situated on a 5-acre site, designed to unlock the economic potential of women and girls.\n\nThe Centre will deliver hands-on training in agribusiness, crafts, and catering, integrated with entrepreneurship development, mentorship, and access to a revolving credit scheme. This holistic approach ensures that beneficiaries transition beyond training into sustainable income generation and enterprise growth.\n\nDesigned for long-term impact and financial sustainability, the Centre will incorporate income-generating production units in food processing and crafts, creating a self-sustaining model that supports ongoing operations and future expansion.\n\nWith an initial reach of 100 women and girls, scaling to 200+, this 18–24 month Phase 1 investment presents a compelling opportunity for donors to support infrastructure development, skills acquisition, and women's economic empowerment through a scalable and sustainable model that delivers measurable impact.",
         isFlagship: true,
       },
       {
@@ -293,7 +300,7 @@ const PILLARS = [
       {
         name: 'Environmental Education & Awareness Programs',
         tagline: 'Know It. Protect It.',
-        body: 'Community-based education on climate change, biodiversity, and sustainable land use — turning knowledge into grassroots action that protects Africa\'s natural resources.',
+        body: "Community-based education on climate change, biodiversity, and sustainable land use — turning knowledge into grassroots action that protects Africa's natural resources.",
       },
       {
         name: 'Water Resource Management Programs',
@@ -305,10 +312,10 @@ const PILLARS = [
 ]
 
 const STATS = [
-  { value: 412,  suffix: 'M+', label: 'Children in extreme poverty globally',     sub: 'Living on less than $3/day' },
-  { value: 900,  suffix: 'M',  label: 'Children in multidimensional poverty',      sub: 'Lacking food, water, education or healthcare' },
-  { value: 247,  suffix: 'M',  label: 'Children deprived in Sub-Saharan Africa',   sub: 'Denied basic rights' },
-  { value: 47,   suffix: '%',  label: 'Of the extreme poor are 18 or younger',     sub: 'Children at the heart of the crisis' },
+  { value: 412, suffix: 'M+', label: 'Children in extreme poverty globally',   sub: 'Living on less than $3/day' },
+  { value: 900, suffix: 'M',  label: 'Children in multidimensional poverty',    sub: 'Lacking food, water, education or healthcare' },
+  { value: 247, suffix: 'M',  label: 'Children deprived in Sub-Saharan Africa', sub: 'Denied basic rights' },
+  { value: 47,  suffix: '%',  label: 'Of the extreme poor are 18 or younger',   sub: 'Children at the heart of the crisis' },
 ]
 
 // ─── Eligibility Step ────────────────────────────────────────────────────────
@@ -321,40 +328,41 @@ function EligibilityStep({ step, index }: { step: { title: string; body: string 
       className="flex gap-4 group"
     >
       <div className="flex-shrink-0 flex flex-col items-center">
-        <div className="w-8 h-8 rounded-full bg-[#6CC7FE] flex items-center justify-center
-          text-[#0D0D0D] font-black text-[12px] shadow-[0_3px_12px_rgba(108,199,254,0.4)]"
+        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center
+          text-primary-foreground font-black text-[12px]"
           style={{ fontFamily: "'Syne', sans-serif" }}>
           {index + 1}
         </div>
-        {index < 4 && <div className="w-px flex-1 bg-[#6CC7FE]/20 mt-1" />}
+        {index < 4 && <div className="w-px flex-1 bg-border mt-1" />}
       </div>
       <div className="pb-5">
-        <p className="text-[#0D0D0D] font-bold text-[13px] mb-1" style={{ fontFamily: "'Syne', sans-serif" }}>{step.title}</p>
-        <p className="text-[#6B7280] text-[12.5px] leading-[1.75]">{step.body}</p>
+        <p className="text-foreground font-bold text-[13px] mb-1"
+          style={{ fontFamily: "'Syne', sans-serif" }}>{step.title}</p>
+        <p className="text-muted-foreground text-[12.5px] leading-[1.75]">{step.body}</p>
       </div>
     </motion.div>
   )
 }
 
-// ─── How You Can Help Grid ───────────────────────────────────────────────────
+// ─── How You Can Help card ───────────────────────────────────────────────────
 function HelpCategoryCard({ cat }: { cat: { icon: string; label: string; items: string[] } }) {
   const iconEl = Icons[cat.icon as keyof typeof Icons] ?? Icons.check
   return (
-    <div className="bg-gradient-to-br from-[#F8FBFF] to-white rounded-2xl border border-[#6CC7FE]/15
-      p-5 hover:border-[#6CC7FE]/40 hover:shadow-[0_8px_32px_rgba(108,199,254,0.12)]
+    <div className="bg-secondary/40 rounded-2xl border border-border
+      p-5 hover:border-primary/40 hover:shadow-md
       transition-all duration-300 group">
       <div className="flex items-center gap-2.5 mb-3">
-        <div className="w-8 h-8 rounded-lg bg-[#6CC7FE]/10 text-[#6CC7FE] flex items-center justify-center
-          group-hover:bg-[#6CC7FE] group-hover:text-[#0D0D0D] transition-colors duration-200">
+        <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center
+          group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">
           {iconEl}
         </div>
-        <p className="text-[#0D0D0D] font-extrabold text-[12px] leading-tight"
+        <p className="text-foreground font-extrabold text-[12px] leading-tight"
           style={{ fontFamily: "'Syne', sans-serif" }}>{cat.label}</p>
       </div>
       <ul className="space-y-1.5">
         {cat.items.map(item => (
-          <li key={item} className="flex items-start gap-2 text-[11.5px] text-[#6B7280] leading-snug">
-            <span className="flex-shrink-0 text-[#F5A623] mt-[2px]">
+          <li key={item} className="flex items-start gap-2 text-[11.5px] text-muted-foreground leading-snug">
+            <span className="flex-shrink-0 text-chart-1 mt-[2px]">
               <svg viewBox="0 0 8 8" fill="currentColor" className="w-2 h-2"><circle cx="4" cy="4" r="4"/></svg>
             </span>
             {item}
@@ -365,94 +373,142 @@ function HelpCategoryCard({ cat }: { cat: { icon: string; label: string; items: 
   )
 }
 
-// ─── Expandable programme card ───────────────────────────────────────────────
+// ─── Expandable Programme Card ───────────────────────────────────────────────
 function ProgramCard({
-  prog, index, expandedCard, setExpandedCard,
+  prog,
+  index,
 }: {
-  prog: { name: string; tagline: string; body: string; bullets?: string[]; bulletFooter?: string; hasEligibility?: boolean; eligibility?: { criteria: string[]; steps: { title: string; body: string }[] }; howYouCanHelp?: { icon: string; label: string; items: string[] }[]; isFlagship?: boolean }
+  prog: {
+    name: string
+    tagline: string
+    body: string
+    bullets?: string[]
+    bulletFooter?: string
+    hasEligibility?: boolean
+    eligibility?: {
+      criteria: string[]
+      steps: { title: string; body: string }[]
+    }
+    howYouCanHelp?: {
+      icon: string
+      label: string
+      items: string[]
+    }[]
+    isFlagship?: boolean
+  }
   index: number
-  expandedCard: string | null
-  setExpandedCard: (name: string | null) => void
 }) {
-  const isOpen = expandedCard === prog.name
+  const [isExpanded, setIsExpanded] = useState(false)
+
   const paragraphs = prog.body.split('\n\n').filter(Boolean)
+
+  const previewText =
+    paragraphs.join(' ').length > 180
+      ? paragraphs.join(' ').slice(0, 180) + '...'
+      : paragraphs.join(' ')
 
   return (
     <motion.div
       key={prog.name}
       initial={{ opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.09, ease: [0.22, 1, 0.36, 1] }}
-      className={`bg-white rounded-2xl border transition-all duration-300 flex flex-col overflow-hidden
+      transition={{
+        duration: 0.6,
+        delay: index * 0.09,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className={`bg-card rounded-2xl border transition-all duration-300 flex flex-col overflow-hidden
         ${prog.isFlagship ? 'md:col-span-2' : ''}
-        ${isOpen
-          ? 'border-[#6CC7FE]/40 shadow-[0_16px_50px_rgba(108,199,254,0.15)]'
-          : 'border-gray-100 shadow-[0_2px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(108,199,254,0.10)] hover:border-[#6CC7FE]/20'
-        }`}
+        border-border shadow-sm hover:shadow-md hover:border-primary/20`}
     >
       {/* Flagship badge */}
       {prog.isFlagship && (
-        <div className="bg-gradient-to-r from-[#F5A623] to-[#f7bc56] px-7 py-2.5 flex items-center gap-2">
-          <svg viewBox="0 0 16 16" fill="currentColor" className="w-3.5 h-3.5 text-[#0D0D0D]">
-            <path d="M8 1l1.854 3.756L14 5.517l-3 2.923.708 4.126L8 10.5l-3.708 1.953.708-4.126L2 5.517l4.146-.761L8 1z"/>
+        <div className="bg-chart-1 px-7 py-2.5 flex items-center gap-2">
+          <svg
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            className="w-3.5 h-3.5 text-white"
+          >
+            <path d="M8 1l1.854 3.756L14 5.517l-3 2.923.708 4.126L8 10.5l-3.708 1.953.708-4.126L2 5.517l4.146-.761L8 1z" />
           </svg>
-          <span className="text-[#0D0D0D] text-[10px] font-black tracking-[0.2em] uppercase"
-            style={{ fontFamily: "'Syne', sans-serif" }}>Flagship Initiative</span>
+          <span
+            className="text-white text-[10px] font-black tracking-[0.2em] uppercase"
+            style={{ fontFamily: "'Syne', sans-serif" }}
+          >
+            Flagship Initiative
+          </span>
         </div>
       )}
 
-      {/* Always-visible header */}
-      <button
-        onClick={() => setExpandedCard(isOpen ? null : prog.name)}
-        className="w-full text-left px-7 pt-7 pb-5 flex items-start justify-between gap-4 group"
-      >
-        <div className="flex-1 min-w-0">
-          <p className="text-[#F5A623] text-[10px] font-bold tracking-[0.18em] uppercase mb-2">
-            {prog.tagline}
-          </p>
-          <h4 className="text-[#0D0D0D] font-extrabold text-[16px] leading-snug"
-            style={{ fontFamily: "'Syne', sans-serif" }}>
-            {prog.name}
-          </h4>
-        </div>
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center mt-1
-            transition-colors duration-200
-            ${isOpen ? 'bg-[#6CC7FE] text-[#0D0D0D]' : 'bg-gray-100 text-[#9CA3AF] group-hover:bg-[#6CC7FE]/10 group-hover:text-[#6CC7FE]'}`}
+      {/* Header */}
+      <div className="px-7 pt-7 pb-5">
+        <p className="text-chart-1 text-[10px] font-bold tracking-[0.18em] uppercase mb-2">
+          {prog.tagline}
+        </p>
+
+        <h4
+          className="text-foreground font-extrabold text-[16px] leading-snug"
+          style={{ fontFamily: "'Syne', sans-serif" }}
         >
-          <svg viewBox="0 0 16 16" fill="currentColor" className="w-3.5 h-3.5">
-            <path fillRule="evenodd" d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z" clipRule="evenodd"/>
-          </svg>
-        </motion.div>
-      </button>
+          {prog.name}
+        </h4>
+      </div>
 
-      <div className="mx-7 h-px bg-gradient-to-r from-[#6CC7FE]/20 via-[#6CC7FE]/10 to-transparent" />
+      <div className="mx-7 h-px bg-border" />
 
-      {/* Expandable body */}
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="px-7 pt-5 pb-7 space-y-4">
-              {/* Body paragraphs */}
+      {/* Content */}
+      <div className="px-7 py-5">
+        <AnimatePresence mode="wait">
+          {!isExpanded ? (
+            <motion.div
+              key="preview"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <p className="text-muted-foreground text-[13px] leading-[1.85]">
+                {previewText}
+              </p>
+
+              <button
+                onClick={() => setIsExpanded(true)}
+                className="mt-4 text-primary text-[11px] font-bold tracking-[0.15em] uppercase hover:opacity-80 transition-opacity"
+              >
+                Read More →
+              </button>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="expanded"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0 }}
+              transition={{
+                duration: 0.35,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="space-y-4 overflow-hidden"
+            >
               {paragraphs.map((para, i) => (
-                <p key={i} className="text-[#6B7280] text-[13.5px] leading-[1.85]">{para}</p>
+                <p
+                  key={i}
+                  className="text-muted-foreground text-[13.5px] leading-[1.85]"
+                >
+                  {para}
+                </p>
               ))}
 
-              {/* Bullet list */}
               {prog.bullets && (
                 <ul className="space-y-2 pt-1">
-                  {prog.bullets.map(b => (
-                    <li key={b} className="flex items-start gap-2.5 text-[13px] text-[#4B5563]">
-                      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#6CC7FE]/10 text-[#6CC7FE]
-                        flex items-center justify-center mt-0.5">
+                  {prog.bullets.map((b) => (
+                    <li
+                      key={b}
+                      className="flex items-start gap-2.5 text-[13px] text-foreground"
+                    >
+                      <span
+                        className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 text-primary
+                        flex items-center justify-center mt-0.5"
+                      >
                         {Icons.check}
                       </span>
                       {b}
@@ -460,24 +516,37 @@ function ProgramCard({
                   ))}
                 </ul>
               )}
+
               {prog.bulletFooter && (
-                <p className="text-[#6B7280] text-[13px] leading-[1.85] pt-1 italic">{prog.bulletFooter}</p>
+                <p className="text-muted-foreground text-[13px] leading-[1.85] pt-1 italic">
+                  {prog.bulletFooter}
+                </p>
               )}
 
-              {/* Eligibility section */}
               {prog.hasEligibility && prog.eligibility && (
                 <div className="pt-4 space-y-6">
-                  {/* Eligibility criteria */}
-                  <div className="bg-[#F8FBFF] rounded-2xl border border-[#6CC7FE]/15 p-5">
-                    <p className="text-[#6CC7FE] text-[10px] font-black tracking-[0.2em] uppercase mb-3"
-                      style={{ fontFamily: "'Syne', sans-serif" }}>
+                  <div className="bg-secondary/60 rounded-2xl border border-border p-5">
+                    <p
+                      className="text-primary text-[10px] font-black tracking-[0.2em] uppercase mb-3"
+                      style={{ fontFamily: "'Syne', sans-serif" }}
+                    >
                       WillWay Scholarship — Eligibility
                     </p>
+
                     <ul className="space-y-2">
-                      {prog.eligibility.criteria.map(c => (
-                        <li key={c} className="flex items-start gap-2 text-[13px] text-[#4B5563] leading-snug">
-                          <span className="flex-shrink-0 text-[#F5A623] mt-0.5">
-                            <svg viewBox="0 0 8 8" fill="currentColor" className="w-2 h-2"><circle cx="4" cy="4" r="4"/></svg>
+                      {prog.eligibility.criteria.map((c) => (
+                        <li
+                          key={c}
+                          className="flex items-start gap-2 text-[13px] text-foreground leading-snug"
+                        >
+                          <span className="flex-shrink-0 text-chart-1 mt-0.5">
+                            <svg
+                              viewBox="0 0 8 8"
+                              fill="currentColor"
+                              className="w-2 h-2"
+                            >
+                              <circle cx="4" cy="4" r="4" />
+                            </svg>
                           </span>
                           {c}
                         </li>
@@ -485,41 +554,59 @@ function ProgramCard({
                     </ul>
                   </div>
 
-                  {/* Application Steps */}
                   <div>
-                    <p className="text-[#0D0D0D] font-black text-[12px] tracking-[0.15em] uppercase mb-4"
-                      style={{ fontFamily: "'Syne', sans-serif" }}>
+                    <p
+                      className="text-foreground font-black text-[12px] tracking-[0.15em] uppercase mb-4"
+                      style={{ fontFamily: "'Syne', sans-serif" }}
+                    >
                       Application Steps
                     </p>
+
                     <div className="space-y-0">
                       {prog.eligibility.steps.map((step, si) => (
-                        <EligibilityStep key={step.title} step={step} index={si} />
+                        <EligibilityStep
+                          key={step.title}
+                          step={step}
+                          index={si}
+                        />
                       ))}
                     </div>
                   </div>
 
-                  {/* How You Can Help */}
                   {prog.howYouCanHelp && (
                     <div>
-                      <p className="text-[#0D0D0D] font-black text-[12px] tracking-[0.15em] uppercase mb-4"
-                        style={{ fontFamily: "'Syne', sans-serif" }}>
+                      <p
+                        className="text-foreground font-black text-[12px] tracking-[0.15em] uppercase mb-4"
+                        style={{ fontFamily: "'Syne', sans-serif" }}
+                      >
                         How You Can Help
                       </p>
+
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {prog.howYouCanHelp.map(cat => (
-                          <HelpCategoryCard key={cat.label} cat={cat} />
+                        {prog.howYouCanHelp.map((cat) => (
+                          <HelpCategoryCard
+                            key={cat.label}
+                            cat={cat}
+                          />
                         ))}
                       </div>
-                      <div className="mt-5 rounded-xl bg-[#050E16] p-4 flex items-center justify-between gap-4">
-                        <p className="text-white/70 text-[12px] leading-snug">
+
+                      <div className="mt-5 rounded-xl bg-foreground p-4 flex items-center justify-between gap-4">
+                        <p className="text-background/70 text-[12px] leading-snug">
                           Ready to support? Complete the{' '}
-                          <span className="text-[#6CC7FE] font-bold">Donor Support Form</span> to get started.
+                          <span className="text-primary font-bold">
+                            Donor Support Form
+                          </span>{' '}
+                          to get started.
                         </p>
-                        <a href="/donate"
-                          className="flex-shrink-0 bg-[#6CC7FE] text-[#0D0D0D] font-black text-[11px]
-                            px-5 py-2.5 rounded-lg tracking-[0.1em] uppercase whitespace-nowrap
-                            hover:bg-[#45b8f5] transition-colors duration-200"
-                          style={{ fontFamily: "'Syne', sans-serif" }}>
+
+                        <a
+                          href="/donate"
+                          className="flex-shrink-0 bg-primary text-primary-foreground font-black text-[11px]
+                          px-5 py-2.5 rounded-lg tracking-[0.1em] uppercase whitespace-nowrap
+                          hover:opacity-90 transition-opacity duration-200"
+                          style={{ fontFamily: "'Syne', sans-serif" }}
+                        >
                           Donate →
                         </a>
                       </div>
@@ -527,34 +614,20 @@ function ProgramCard({
                   )}
                 </div>
               )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      {/* Collapsed preview */}
-      <AnimatePresence initial={false}>
-        {!isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="px-7 pb-6 pt-4"
-          >
-            <p className="text-[#9CA3AF] text-[12.5px] leading-snug line-clamp-2">
-              {paragraphs[0]}
-            </p>
-            <p className="mt-3 text-[#6CC7FE] text-[11px] font-bold tracking-[0.15em] uppercase">
-              Read more ↓
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <button
+                onClick={() => setIsExpanded(false)}
+                className="pt-2 text-primary text-[11px] font-bold tracking-[0.15em] uppercase hover:opacity-80 transition-opacity"
+              >
+                Show Less ↑
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.div>
   )
 }
-
 // ════════════════════════════════════════════════════════════════════════════
 export default function WhatWeDoPage() {
   const [active, setActive] = useState('education')
@@ -565,30 +638,40 @@ export default function WhatWeDoPage() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const heroImgY = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
 
+  // Scroll to anchor on mount if hash is present
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '')
+    if (hash && PILLARS.find(p => p.id === hash)) {
+      setActive(hash)
+      setTimeout(() => {
+        document.getElementById('pillars')?.scrollIntoView({ behavior: 'smooth' })
+      }, 400)
+    }
+  }, [])
+
   return (
-    <div className="min-h-screen bg-[#FAFAFA]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+    <div className="min-h-screen bg-background" style={{ fontFamily: "'DM Sans', sans-serif" }}>
       <Navbar />
 
-      {/* ══════════════════════════════════════════ HERO */}
-      <section ref={heroRef} className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#050E16]">
+      {/* ══════ HERO ══════════════════════════════════════════════════════════ */}
+      <section ref={heroRef} className="relative min-h-[90vh] flex items-center overflow-hidden bg-foreground">
         <motion.div style={{ y: heroImgY }} className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=1600&q=80&fit=crop"
-            alt="WillWay Africa programmes" fill className="object-cover opacity-15" priority
+            alt="WillWay Africa programmes" fill className="object-cover " priority
           />
         </motion.div>
 
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050E16] via-[#050E16]/55 to-[#050E16]/10" />
-        <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#FAFAFA] to-transparent" />
-        <div className="absolute inset-0 pointer-events-none opacity-15"
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground via-foreground/60 to-foreground/10" />
+        <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-background to-transparent" />
+
+        {/* Dot pattern */}
+        <div className="absolute inset-0 pointer-events-none opacity-10"
           style={{
-            backgroundImage: 'radial-gradient(circle, #6CC7FE 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
             backgroundSize: '34px 34px',
+            color: 'var(--primary)',
           }} />
-        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px]
-          rounded-full bg-[#6CC7FE]/06 blur-[130px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/3 w-[300px] h-[300px]
-          rounded-full bg-[#F5A623]/05 blur-[100px] pointer-events-none" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-14 py-28">
           <div className="max-w-3xl">
@@ -596,10 +679,10 @@ export default function WhatWeDoPage() {
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="inline-flex items-center gap-2.5 mb-8
-                bg-[#6CC7FE]/10 border border-[#6CC7FE]/25 rounded-full px-5 py-2"
+                bg-primary/15 border border-primary/30 rounded-full px-5 py-2"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#6CC7FE] animate-pulse" />
-              <span className="text-[#6CC7FE] text-[11px] font-bold tracking-[0.22em] uppercase"
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-primary text-[11px] font-bold tracking-[0.22em] uppercase"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}>
                 What We Do
               </span>
@@ -608,12 +691,12 @@ export default function WhatWeDoPage() {
             <motion.h1
               initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="text-white font-extrabold leading-[1.05] tracking-[-0.03em] mb-8"
+              className="text-background font-extrabold leading-[1.05] tracking-[-0.03em] mb-8"
               style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(2.8rem, 5.5vw, 5rem)' }}
             >
               Four pillars.{' '}
               <br />
-              <span className="text-[#6CC7FE]">One unshakeable</span>
+              <span className="text-primary">One unshakeable</span>
               <br />
               belief in Africa.
             </motion.h1>
@@ -621,7 +704,7 @@ export default function WhatWeDoPage() {
             <motion.p
               initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.25 }}
-              className="text-white/55 text-[15px] leading-[1.9] max-w-[520px] mb-12"
+              className="text-background/55 text-[15px] leading-[1.9] max-w-[520px] mb-12"
             >
               Education. Health. Livelihoods. Environment.
               Every programme we run addresses a root cause of poverty and
@@ -645,8 +728,8 @@ export default function WhatWeDoPage() {
                   className={`flex items-center gap-2 px-5 py-2.5 rounded-full border
                     text-[12px] font-bold tracking-wide uppercase transition-all duration-200
                     ${active === p.id
-                      ? 'bg-[#6CC7FE] border-[#6CC7FE] text-[#0D0D0D]'
-                      : 'bg-white/06 border-white/15 text-white/65 hover:border-[#6CC7FE]/50 hover:text-[#6CC7FE]'
+                      ? 'bg-primary border-primary text-primary-foreground'
+                      : 'bg-background/8 border-background/20 text-background/65 hover:border-primary/60 hover:text-primary'
                     }`}
                   style={{ fontFamily: "'Syne', sans-serif" }}
                 >
@@ -659,20 +742,20 @@ export default function WhatWeDoPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════ MISSION BANNER */}
-      <section className="bg-[#050E16] border-b border-white/05">
+      {/* ══════ MISSION BANNER ════════════════════════════════════════════════ */}
+      <section className="bg-primary border-b border-background/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-14 py-14">
           <Reveal className="flex flex-col md:flex-row items-start md:items-center gap-8">
             <div className="flex-shrink-0">
-              <div className="w-14 h-14 rounded-2xl bg-[#6CC7FE] flex items-center justify-center
-                shadow-[0_4px_20px_rgba(108,199,254,0.45)]">
-                <span className="text-[#0D0D0D] font-black text-lg" style={{ fontFamily: "'Syne', sans-serif" }}>01</span>
+              <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center shadow-lg">
+                <span className="text-primary-foreground font-black text-lg"
+                  style={{ fontFamily: "'Syne', sans-serif" }}>01</span>
               </div>
             </div>
             <div className="flex-1">
-              <p className="text-[#9CA3AF] text-[11px] font-bold tracking-[0.22em] uppercase mb-3">Our Mission</p>
-              <p className="text-white/90 text-[17px] leading-[1.85] max-w-3xl">
-                To <span className="font-black text-white">EMPOWER</span> young people to spearhead the development of
+              <p className="text-background/50 text-[11px] font-bold tracking-[0.22em] uppercase mb-3">Our Mission</p>
+              <p className="text-background/90 text-[17px] leading-[1.85] max-w-3xl">
+                To <span className="font-black text-background">EMPOWER</span> young people to spearhead the development of
                 their communities through advocacy, social mobilization and mix interventions —
                 ensuring no young person is left behind because of where they were born.
               </p>
@@ -681,44 +764,42 @@ export default function WhatWeDoPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════ STATS */}
-      <section className="bg-white border-b border-gray-100">
+      {/* ══════ STATS ═════════════════════════════════════════════════════════ */}
+      <section className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-6 lg:px-14">
           <Reveal className="pt-14 pb-10 text-center">
             <div className="inline-flex items-center gap-2.5 mb-4
-              bg-[#6CC7FE]/08 border border-[#6CC7FE]/15 rounded-full px-5 py-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#6CC7FE] animate-pulse" />
-              <span className="text-[#6CC7FE] text-[11px] font-bold tracking-[0.22em] uppercase">
+              bg-primary/8 border border-primary/20 rounded-full px-5 py-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-primary text-[11px] font-bold tracking-[0.22em] uppercase">
                 Why Young People &amp; Rural Women
               </span>
             </div>
-            <h2 className="text-[#0D0D0D] font-extrabold tracking-[-0.025em] leading-[1.1] mt-2"
+            <h2 className="text-foreground font-extrabold tracking-[-0.025em] leading-[1.1] mt-2"
               style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.4rem, 2.5vw, 2rem)' }}>
               The numbers demand urgent action.
             </h2>
           </Reveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100 border-t border-gray-100">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-border border-t border-border">
             {STATS.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.1}
-                className="flex flex-col items-center py-10 px-6 text-center group">
-                <p className="font-extrabold leading-none mb-1"
-                  style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.8rem, 3vw, 2.6rem)',
-                    background: 'linear-gradient(135deg, #6CC7FE 0%, #45b8f5 100%)',
-                    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                className="flex flex-col items-center py-10 px-6 text-center">
+                <p className="font-extrabold leading-none mb-1 text-primary"
+                  style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.8rem, 3vw, 2.6rem)' }}>
                   <Counter to={s.value} suffix={s.suffix} />
                 </p>
-                <p className="text-[#0D0D0D] font-bold text-[12px] leading-snug mb-1 mt-2">{s.label}</p>
-                <p className="text-[#9CA3AF] text-[10.5px] leading-snug tracking-wide">{s.sub}</p>
+                <p className="text-foreground font-bold text-[12px] leading-snug mb-1 mt-2">{s.label}</p>
+                <p className="text-muted-foreground text-[10.5px] leading-snug tracking-wide">{s.sub}</p>
               </Reveal>
             ))}
           </div>
 
-          <Reveal className="py-8 text-center border-t border-gray-100">
-            <p className="text-[#6B7280] text-[13px] leading-relaxed max-w-2xl mx-auto">
+          <Reveal className="py-8 text-center border-t border-border">
+            <p className="text-muted-foreground text-[13px] leading-relaxed max-w-2xl mx-auto">
               Of the 412 million children living in extreme monetary poverty, the vast majority are
               concentrated in Sub-Saharan Africa and South Asia.{' '}
-              <span className="font-bold text-[#0D0D0D]">
+              <span className="font-bold text-foreground">
                 Sub-Saharan Africa alone accounts for roughly 300+ million children in extreme poverty
               </span>{' '}
               — about three-quarters of the global total. Africa's greatest assets are its young people.
@@ -727,30 +808,30 @@ export default function WhatWeDoPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════ PILLAR TABS */}
-      <section id="pillars" className="py-24 bg-[#FAFAFA]">
+      {/* ══════ PILLAR TABS ═══════════════════════════════════════════════════ */}
+      <section id="pillars" className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-6 lg:px-14">
 
-          {/* Tabs */}
-          <Reveal className="flex flex-wrap gap-0 mb-16 border-b border-gray-200">
+          {/* Tab bar */}
+          <Reveal className="flex flex-wrap gap-0 mb-16 border-b border-border">
             {PILLARS.map(p => (
               <button
                 key={p.id}
                 onClick={() => { setActive(p.id); setExpandedCard(null) }}
                 className={`relative flex items-center gap-2.5 px-6 py-4
                   text-[13px] font-bold tracking-wide transition-all duration-200
-                  ${active === p.id ? 'text-[#0D0D0D]' : 'text-[#9CA3AF] hover:text-[#6B7280]'}`}
+                  ${active === p.id ? 'text-foreground' : 'text-muted-foreground hover:text-foreground/70'}`}
                 style={{ fontFamily: "'Syne', sans-serif" }}
               >
                 <span className={`transition-colors duration-200
-                  ${active === p.id ? 'text-[#6CC7FE]' : 'text-current'}`}>
+                  ${active === p.id ? 'text-primary' : 'text-current'}`}>
                   {Icons[p.id as keyof typeof Icons]}
                 </span>
                 {p.label}
                 {active === p.id && (
                   <motion.div
                     layoutId="tab-line"
-                    className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#6CC7FE] rounded-full"
+                    className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-primary rounded-full"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -758,7 +839,7 @@ export default function WhatWeDoPage() {
             ))}
           </Reveal>
 
-          {/* Active pillar */}
+          {/* Active pillar content */}
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
@@ -767,43 +848,40 @@ export default function WhatWeDoPage() {
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
             >
-              {/* Intro grid */}
+              {/* Intro: text + image */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
                 <div>
                   <div className="flex items-center gap-3 mb-6">
-                    <span className="font-black select-none leading-none"
-                      style={{ fontFamily: "'Syne', sans-serif", fontSize: '4rem',
-                        color: '#6CC7FE', opacity: 0.15 }}>
+                    <span className="font-black select-none leading-none text-primary/15"
+                      style={{ fontFamily: "'Syne', sans-serif", fontSize: '4rem' }}>
                       {current.num}
                     </span>
-                    <div className="h-px flex-1 bg-gradient-to-r from-[#6CC7FE]/20 to-transparent" />
+                    <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
                   </div>
 
-                  <h2 className="text-[#0D0D0D] font-extrabold leading-[1.1] tracking-[-0.025em]"
+                  <h2 className="text-foreground font-extrabold leading-[1.1] tracking-[-0.025em]"
                     style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.7rem, 3.2vw, 2.6rem)' }}>
                     {current.headline}
                   </h2>
-                  <h2 className="font-extrabold leading-[1.1] tracking-[-0.025em] mb-6"
-                    style={{ fontFamily: "'Syne', sans-serif",
-                      fontSize: 'clamp(1.4rem, 2.4vw, 1.9rem)', color: '#6CC7FE' }}>
+                  <h2 className="text-primary font-extrabold leading-[1.1] tracking-[-0.025em] mb-6"
+                    style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.4rem, 2.4vw, 1.9rem)' }}>
                     {current.subline}
                   </h2>
 
                   <div className="flex items-center gap-2 mb-6">
-                    <div className="h-[3px] w-10 rounded-full bg-[#F5A623]" />
-                    <div className="h-[3px] w-4 rounded-full bg-[#F5A623]/30" />
+                    <div className="h-[3px] w-10 rounded-full bg-chart-1" />
+                    <div className="h-[3px] w-4 rounded-full bg-chart-1/30" />
                   </div>
 
-                  <p className="text-[#6B7280] text-[15px] leading-[1.9] mb-8">{current.body}</p>
+                  <p className="text-muted-foreground text-[15px] leading-[1.9] mb-8">{current.body}</p>
 
                   <motion.a
                     href="/donate"
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 bg-[#6CC7FE] text-[#0D0D0D]
+                    className="inline-flex items-center gap-2 bg-primary text-primary-foreground
                       font-black text-[12px] px-7 py-3.5 rounded-xl tracking-[0.1em] uppercase
-                      shadow-[0_4px_24px_rgba(108,199,254,0.35)]
-                      hover:bg-[#45b8f5] transition-colors duration-200"
+                      shadow-md hover:opacity-90 transition-opacity duration-200"
                     style={{ fontFamily: "'Syne', sans-serif" }}
                   >
                     Support this pillar
@@ -811,35 +889,34 @@ export default function WhatWeDoPage() {
                   </motion.a>
                 </div>
 
-                {/* Image */}
-                <div className="relative rounded-3xl overflow-hidden
-                  shadow-[0_20px_70px_rgba(0,0,0,0.12)]" style={{ aspectRatio: '16/10' }}>
+                {/* Pillar image */}
+                <div className="relative rounded-3xl overflow-hidden shadow-xl"
+                  style={{ aspectRatio: '16/10' }}>
                   <Image src={current.image} alt={current.label} fill className="object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D]/50 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-transparent to-transparent" />
 
                   <div className="absolute bottom-5 left-5">
                     <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full
-                      bg-white/15 backdrop-blur-md border border-white/25
-                      text-white text-[12px] font-bold"
+                      bg-background/15 backdrop-blur-md border border-background/25
+                      text-background text-[12px] font-bold"
                       style={{ fontFamily: "'Syne', sans-serif" }}>
-                      <span className="text-[#6CC7FE]">{Icons[current.id as keyof typeof Icons]}</span>
+                      <span className="text-primary">{Icons[current.id as keyof typeof Icons]}</span>
                       {current.label}
                     </span>
                   </div>
 
                   <div className="absolute top-5 right-5 w-14 h-14 rounded-2xl
-                    bg-[#6CC7FE] flex flex-col items-center justify-center
-                    shadow-[0_4px_16px_rgba(108,199,254,0.5)]">
-                    <span className="text-[#0D0D0D] font-black text-xl leading-none"
+                    bg-primary flex flex-col items-center justify-center shadow-lg">
+                    <span className="text-primary-foreground font-black text-xl leading-none"
                       style={{ fontFamily: "'Syne', sans-serif" }}>
                       {current.programs.length}
                     </span>
-                    <span className="text-[#0D0D0D]/60 text-[9px]">prog.</span>
+                    <span className="text-primary-foreground/60 text-[9px]">prog.</span>
                   </div>
                 </div>
               </div>
 
-              {/* Programme cards — expandable */}
+              {/* Programme cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {current.programs.map((prog, i) => (
                   <ProgramCard
@@ -856,18 +933,18 @@ export default function WhatWeDoPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════ ALL PILLARS */}
-      <section className="py-24 bg-white">
+      {/* ══════ ALL PILLARS OVERVIEW ══════════════════════════════════════════ */}
+      <section className="py-24 bg-card">
         <div className="max-w-7xl mx-auto px-6 lg:px-14">
           <Reveal className="text-center mb-16">
             <div className="inline-flex items-center gap-2.5 mb-5
-              bg-[#6CC7FE]/08 border border-[#6CC7FE]/15 rounded-full px-5 py-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#6CC7FE] animate-pulse" />
-              <span className="text-[#6CC7FE] text-[11px] font-bold tracking-[0.22em] uppercase">
+              bg-primary/8 border border-primary/20 rounded-full px-5 py-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-primary text-[11px] font-bold tracking-[0.22em] uppercase">
                 The Full Picture
               </span>
             </div>
-            <h2 className="text-[#0D0D0D] font-extrabold tracking-[-0.025em] leading-[1.1] mt-3"
+            <h2 className="text-foreground font-extrabold tracking-[-0.025em] leading-[1.1] mt-3"
               style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)' }}>
               Every programme. Every pillar.
             </h2>
@@ -877,43 +954,45 @@ export default function WhatWeDoPage() {
             {PILLARS.map((pillar, pi) => (
               <Reveal key={pillar.id} delay={pi * 0.1}>
                 <motion.div
-                  whileHover={{ y: -5, borderColor: '#6CC7FE' }}
+                  whileHover={{ y: -5 }}
                   onClick={() => {
                     setActive(pillar.id)
                     document.getElementById('pillars')?.scrollIntoView({ behavior: 'smooth' })
                   }}
-                  className="group relative bg-[#FAFAFA] rounded-2xl p-6 pb-8
-                    border border-gray-100 cursor-pointer
-                    hover:shadow-[0_12px_40px_rgba(108,199,254,0.12)]
+                  className="group relative bg-background rounded-2xl p-6 pb-8
+                    border border-border cursor-pointer
+                    hover:border-primary/40 hover:shadow-lg
                     transition-all duration-300 overflow-hidden"
                 >
-                  <span className="absolute top-3 right-5 text-5xl font-black select-none leading-none
-                    text-[#6CC7FE] opacity-[0.06]"
+                  <span className="absolute top-3 right-5 text-5xl font-black select-none
+                    leading-none text-primary opacity-[0.06]"
                     style={{ fontFamily: "'Syne', sans-serif" }}>
                     {pillar.num}
                   </span>
+                  {/* Hover top border */}
                   <div className="absolute top-0 left-0 right-0 h-[2.5px] rounded-full
-                    bg-gradient-to-r from-[#6CC7FE] to-[#F5A623]
-                    scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left" />
+                    bg-primary scale-x-0 group-hover:scale-x-100
+                    transition-transform duration-300 origin-left" />
+
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5
-                    bg-[#6CC7FE]/10 text-[#6CC7FE]">
+                    bg-primary/10 text-primary">
                     {Icons[pillar.id as keyof typeof Icons]}
                   </div>
-                  <h4 className="text-[#0D0D0D] font-extrabold text-[15px] mb-4"
+                  <h4 className="text-foreground font-extrabold text-[15px] mb-4"
                     style={{ fontFamily: "'Syne', sans-serif" }}>
                     {pillar.label}
                   </h4>
                   <ul className="space-y-2.5">
                     {pillar.programs.map(prog => (
                       <li key={prog.name}
-                        className="flex items-start gap-2 text-[12.5px] text-[#6B7280]">
-                        <div className="w-1 h-1 rounded-full mt-[7px] flex-shrink-0 bg-[#F5A623]" />
+                        className="flex items-start gap-2 text-[12.5px] text-muted-foreground">
+                        <div className="w-1 h-1 rounded-full mt-[7px] flex-shrink-0 bg-chart-1" />
                         {prog.name}
                       </li>
                     ))}
                   </ul>
                   <p className="mt-5 text-[11px] font-bold tracking-wide uppercase
-                    text-[#9CA3AF] group-hover:text-[#6CC7FE] transition-colors duration-200"
+                    text-muted-foreground group-hover:text-primary transition-colors duration-200"
                     style={{ fontFamily: "'Syne', sans-serif" }}>
                     View pillar →
                   </p>
@@ -924,53 +1003,50 @@ export default function WhatWeDoPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════ CTA */}
-      <section className="py-24 bg-[#FAFAFA]">
+      {/* ══════ CTA ═══════════════════════════════════════════════════════════ */}
+      <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-6 lg:px-14">
           <Reveal>
-            <div className="relative rounded-3xl overflow-hidden bg-[#050E16]
+            <div className="relative rounded-3xl overflow-hidden bg-background/60 border border-border shadow-xl
               px-8 py-16 md:px-16 flex flex-col md:flex-row
               items-center justify-between gap-10">
 
-              <div className="absolute inset-0 pointer-events-none opacity-20"
+              {/* Dot pattern */}
+              <div className="absolute inset-0 pointer-events-none opacity-10"
                 style={{
-                  backgroundImage: 'radial-gradient(circle, #6CC7FE 1px, transparent 1px)',
+                  backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
                   backgroundSize: '28px 28px',
+                  color: 'var(--primary)',
                 }} />
-              <div className="absolute -top-24 -left-24 w-80 h-80
-                rounded-full bg-[#6CC7FE]/10 blur-[100px] pointer-events-none" />
-              <div className="absolute -bottom-16 -right-16 w-64 h-64
-                rounded-full bg-[#F5A623]/08 blur-[80px] pointer-events-none" />
 
               <div className="relative z-10 max-w-xl">
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="h-[2px] w-8 rounded-full bg-[#F5A623]" />
-                  <p className="text-[#F5A623] text-[11px] font-bold tracking-[0.22em] uppercase">
+                  <div className="h-[2px] w-8 rounded-full bg-chart-1" />
+                  <p className="text-chart-1 text-[11px] font-bold tracking-[0.22em] uppercase">
                     Be Part of the Story
                   </p>
                 </div>
-                <h3 className="text-white font-extrabold leading-[1.1] tracking-[-0.025em]"
+                <h3 className="text-foreground font-extrabold leading-[1.1] tracking-[-0.025em]"
                   style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.5rem, 3vw, 2.3rem)' }}>
                   Every programme runs on the belief of people like you.{' '}
-                  <span className="text-[#6CC7FE]">Support our work today.</span>
+                  <span className="text-primary">Support our work today.</span>
                 </h3>
               </div>
 
               <div className="relative z-10 flex flex-col sm:flex-row gap-4 flex-shrink-0">
                 <motion.a href="/donate"
                   whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}
-                  className="bg-[#6CC7FE] text-[#0D0D0D] font-black text-[13px]
+                  className="bg-primary text-primary-foreground font-black text-[13px]
                     px-8 py-4 rounded-xl tracking-[0.1em] uppercase
-                    shadow-[0_6px_28px_rgba(108,199,254,0.4)]
-                    hover:bg-[#45b8f5] transition-colors whitespace-nowrap"
+                    shadow-lg hover:opacity-90 transition-opacity whitespace-nowrap"
                   style={{ fontFamily: "'Syne', sans-serif" }}>
                   Donate Now →
                 </motion.a>
                 <motion.a href="/get-involved"
                   whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}
-                  className="bg-white/08 border-2 border-white/20 text-white
+                  className="bg-secondary border-2 border-background/20 text-background
                     font-black text-[13px] px-8 py-4 rounded-xl
-                    tracking-[0.1em] uppercase hover:bg-white/15
+                    tracking-[0.1em] uppercase hover:bg-background/15
                     transition-colors whitespace-nowrap"
                   style={{ fontFamily: "'Syne', sans-serif" }}>
                   Get Involved
