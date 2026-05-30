@@ -6,8 +6,8 @@ import { motion } from 'framer-motion'
 import { Facebook, Twitter, Linkedin, Instagram, MapPin, Mail, Phone } from 'lucide-react'
 
 const QUICK_LINKS = [
-  { label: 'About Us',     href: '/about' },
-  { label: 'What We Do',   href: '/programs' },
+  { label: 'About Us',     href: '/' },
+  { label: 'What We Do',   href: '/what-we-do' },
   { label: 'Get Involved', href: '/get-involved' },
   { label: 'Blog',         href: '/blog' },
   { label: 'Contact',      href: '/contact' },
@@ -91,7 +91,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-[#6CC7FE] text-[13px] font-medium
+                    className="text-[#111827] text-[13px] font-medium
                       hover:text-[#3aaef0] transition-colors duration-200"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
@@ -114,20 +114,21 @@ export default function Footer() {
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#6CC7FE] mt-0.5 flex-shrink-0" />
                 <span
-                  className="text-[#6CC7FE] text-[13px] leading-[1.7]"
+                  className="text-[#111827] text-[13px] leading-[1.7]"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  Address Here
+GG-644-1910, adjacent Zen Filling Station, Tantra Hill - Accra, Ghana
                 </span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-[#6CC7FE] flex-shrink-0" />
                 <a
                   href="mailto:info@willwayafrica.org"
-                  className="text-[#6CC7FE] text-[13px] hover:text-[#3aaef0]
+                  className="text-[#111827] text-[13px] hover:text-[#6CC7FE]
                     transition-colors duration-200"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
+                  willwayafrica@yahoo.com<br></br>
                   info@willwayafrica.org
                 </a>
               </div>
@@ -135,11 +136,11 @@ export default function Footer() {
                 <Phone className="w-4 h-4 text-[#6CC7FE] flex-shrink-0" />
                 <a
                   href="tel:+233000000000"
-                  className="text-[#6CC7FE] text-[13px] hover:text-[#3aaef0]
+                  className="text-[#111827] text-[13px] hover:text-[#6CC7FE]
                     transition-colors duration-200"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  +233 000 000 000
+                  +233 26 231 2578
                 </a>
               </div>
             </div>

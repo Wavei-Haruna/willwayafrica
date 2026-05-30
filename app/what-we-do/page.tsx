@@ -704,7 +704,7 @@ export default function WhatWeDoPage() {
             <motion.p
               initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.25 }}
-              className="text-background/55 text-[15px] leading-[1.9] max-w-[520px] mb-12"
+              className="text-background/55 text-[16px] leading-[1.9] max-w-[520px] mb-12"
             >
               Education. Health. Livelihoods. Environment.
               Every programme we run addresses a root cause of poverty and
@@ -789,14 +789,14 @@ export default function WhatWeDoPage() {
                   style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.8rem, 3vw, 2.6rem)' }}>
                   <Counter to={s.value} suffix={s.suffix} />
                 </p>
-                <p className="text-foreground font-bold text-[12px] leading-snug mb-1 mt-2">{s.label}</p>
-                <p className="text-muted-foreground text-[10.5px] leading-snug tracking-wide">{s.sub}</p>
+                <p className="text-foreground font-bold text-[14px] leading-snug mb-1 mt-2">{s.label}</p>
+                <p className="text-muted-foreground text-[13px] leading-snug tracking-wide">{s.sub}</p>
               </Reveal>
             ))}
           </div>
 
           <Reveal className="py-8 text-center border-t border-border">
-            <p className="text-muted-foreground text-[13px] leading-relaxed max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-[16px] leading-relaxed max-w-2xl mx-auto">
               Of the 412 million children living in extreme monetary poverty, the vast majority are
               concentrated in Sub-Saharan Africa and South Asia.{' '}
               <span className="font-bold text-foreground">
@@ -875,18 +875,6 @@ export default function WhatWeDoPage() {
 
                   <p className="text-muted-foreground text-[15px] leading-[1.9] mb-8">{current.body}</p>
 
-                  <motion.a
-                    href="/donate"
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 bg-primary text-primary-foreground
-                      font-black text-[12px] px-7 py-3.5 rounded-xl tracking-[0.1em] uppercase
-                      shadow-md hover:opacity-90 transition-opacity duration-200"
-                    style={{ fontFamily: "'Syne', sans-serif" }}
-                  >
-                    Support this pillar
-                    {Icons.arrow}
-                  </motion.a>
                 </div>
 
                 {/* Pillar image */}
@@ -1034,7 +1022,7 @@ export default function WhatWeDoPage() {
               </div>
 
               <div className="relative z-10 flex flex-col sm:flex-row gap-4 flex-shrink-0">
-                <motion.a href="/donate"
+                <motion.a href="/get-involved"
                   whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}
                   className="bg-primary text-primary-foreground font-black text-[13px]
                     px-8 py-4 rounded-xl tracking-[0.1em] uppercase
@@ -1044,10 +1032,12 @@ export default function WhatWeDoPage() {
                 </motion.a>
                 <motion.a href="/get-involved"
                   whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}
-                  className="bg-secondary border-2 border-background/20 text-background
-                    font-black text-[13px] px-8 py-4 rounded-xl
-                    tracking-[0.1em] uppercase hover:bg-background/15
-                    transition-colors whitespace-nowrap"
+                  className="bg-secondary border-2 border-border text-foreground
+  font-black text-[13px] px-8 py-4 rounded-xl
+  tracking-[0.1em] uppercase whitespace-nowrap
+  transition-all duration-200
+  hover:bg-primary hover:text-primary-foreground hover:border-primary
+  hover:shadow-lg"
                   style={{ fontFamily: "'Syne', sans-serif" }}>
                   Get Involved
                 </motion.a>

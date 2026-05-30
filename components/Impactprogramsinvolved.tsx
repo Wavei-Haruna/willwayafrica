@@ -97,7 +97,7 @@ const PROGRAMS = [
 
 const INVOLVE_CARDS = [
   {
-    icon: <HandCoins className="w-6 h-6 text-[#6CC7FE]" />,
+    icon: <HandCoins className="w-6 h-6" />,
     tag: 'Donate',
     title: 'Fund the Future',
     desc: 'Every cedi, dollar, and pound goes directly to education bursaries, health programmes, livelihood seed funding, and community tech centres.',
@@ -105,7 +105,7 @@ const INVOLVE_CARDS = [
     href: '/donate',
   },
   {
-    icon: <Users className="w-6 h-6 text-[#6CC7FE]" />,
+    icon: <Users className="w-6 h-6" />,
     tag: 'Volunteer',
     title: 'Give Your Skills',
     desc: 'Teacher, doctor, entrepreneur, or tech professional? We connect skilled volunteers with young people who need exactly what you have to offer.',
@@ -113,7 +113,7 @@ const INVOLVE_CARDS = [
     href: '/volunteer',
   },
   {
-    icon: <Handshake className="w-6 h-6 text-[#6CC7FE]" />,
+    icon: <Handshake className="w-6 h-6" />,
     tag: 'Partner',
     title: 'Build With Us',
     desc: "We work with NGOs, government agencies, and corporates to scale impact. If your goals align with ours, let's build something together.",
@@ -196,7 +196,7 @@ export default function ImpactProgramsInvolved() {
                     {label}
                   </p>
                   <p
-                    className="text-[#9CA3AF] text-[11px] leading-relaxed
+                    className="text-[#9CA3AF] text-[14px] leading-relaxed
                       group-hover:text-white/70 transition-colors duration-300"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
@@ -451,7 +451,7 @@ export default function ImpactProgramsInvolved() {
                   One Child's Future Starts With One Decision.
                 </h3>
                 <p
-                  className="text-white/65 text-[13px] mt-2 leading-relaxed"
+                  className="text-white/65 text-[16px] mt-2 leading-relaxed"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
                   All donations are used transparently and directly in our programmes.

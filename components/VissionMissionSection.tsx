@@ -167,7 +167,7 @@ export default function VisionMissionSection() {
                 To{' '}
                 <strong className="text-[#0D0D0D] font-bold">EMPOWER</strong>{' '}
                 young people to spearhead the development of their communities
-                through advocacy, social mobilization and mix interventions.
+                through advocacy, social mobilization and mix interventions — ensuring no young person is left behind because of where they were born.
               </p>
 
               <div className="flex flex-wrap gap-2">
