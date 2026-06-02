@@ -58,10 +58,10 @@ const WHAT_WE_DO_PILLARS = [
 const NAV_ITEMS = [
   { label: 'About Us',     href: '/' },
   { label: 'What We Do',  href: '/what-we-do', hasDropdown: true },
+  { label: 'Our Team',    href: '/our-team' },
   { label: 'Blog',        href: '/blog' },
   { label: 'Get Involved',href: '/get-involved' },
   { label: 'Contact',     href: '/contact' },
-  { label: 'Our Team',    href: '/our-team' },
 ]
 
 export default function Navbar() {
