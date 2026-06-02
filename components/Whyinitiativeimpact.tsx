@@ -68,11 +68,11 @@ function SectionLabel({ text }: { text: string }) {
 // ── Real Unsplash images ────────────────────────────────────────────
 const INITIATIVE_IMAGES = [
   {
-    url: '/Education-Digital.jpg',
+    url: '/Education-And-Digital.jpeg',
     alt: 'Student studying at night',
   },
   {
-    url: '/Our-Initiative_Health.jpg',
+    url: '/Health-And-Wellbeing.jpeg',
     alt: 'Healthcare workers in Africa',
   },
 ]

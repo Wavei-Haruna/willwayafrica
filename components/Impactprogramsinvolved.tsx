@@ -171,33 +171,40 @@ export default function ImpactProgramsInvolved() {
             border border-gray-100 shadow-[0_8px_40px_rgba(108,199,254,0.12)]">
             {STATS.map(({ num, label, desc }, i) => (
               <Reveal key={label} delay={i * 0.1}>
-                <motion.div
-                  whileHover={{ backgroundColor: '#6CC7FE' }}
-                  className="group flex flex-col items-center text-center p-8 lg:p-10
-                    bg-white border-r border-b border-gray-100 last:border-r-0
-                    transition-colors duration-300 cursor-default h-full"
-                >
+               <motion.div
+  whileHover={{
+    backgroundColor: '#6CC7FE',
+    y: -2,
+  }}
+  transition={{
+    duration: 0.15,
+    ease: [0.22, 1, 0.36, 1],
+  }}
+  className="group flex flex-col items-center text-center p-8 lg:p-10
+    bg-white border-r border-b border-gray-100 last:border-r-0
+    cursor-default h-full"
+>
                   {/* Animated counter number */}
                   <motion.p
-                    className="font-extrabold leading-none mb-2
-                      text-[#6CC7FE] group-hover:text-white transition-colors duration-300"
-                    style={{
-                      fontFamily: "'Syne', sans-serif",
-                      fontSize: 'clamp(2rem, 3.5vw, 2.8rem)',
-                    }}
-                  >
-                    {num}
-                  </motion.p>
+  className="font-extrabold leading-none mb-2
+    text-[#6CC7FE] group-hover:text-white transition-colors duration-100"
+  style={{
+    fontFamily: "'Syne', sans-serif",
+    fontSize: 'clamp(2rem, 3.5vw, 2.8rem)',
+  }}
+>
+  {num}
+</motion.p>
                   <p
                     className="font-bold text-[#0D0D0D] text-[13px] mb-1
-                      group-hover:text-white transition-colors duration-300"
+                      group-hover:text-white transition-colors duration-100"
                     style={{ fontFamily: "'Syne', sans-serif" }}
                   >
                     {label}
                   </p>
                   <p
                     className="text-[#9CA3AF] text-[14px] leading-relaxed
-                      group-hover:text-white/70 transition-colors duration-300"
+                      group-hover:text-white/70 transition-colors duration-100"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
                     {desc}
