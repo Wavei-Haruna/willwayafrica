@@ -654,93 +654,112 @@ export default function WhatWeDoPage() {
       <Navbar />
 
       {/* ══════ HERO ══════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative min-h-[90vh] flex items-center overflow-hidden bg-foreground">
-        <motion.div style={{ y: heroImgY }} className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=1600&q=80&fit=crop"
-            alt="WillWay Africa programmes" fill className="object-cover " priority
-          />
-        </motion.div>
+     <section
+  ref={heroRef}
+  className="relative min-h-[90vh] flex items-center overflow-hidden bg-background"
+>
+  {/* Subtle dot grid */}
+  <div
+    className="absolute inset-0 pointer-events-none opacity-40"
+    style={{
+      backgroundImage:
+        'radial-gradient(circle, var(--primary) 1px, transparent 1px)',
+      backgroundSize: '34px 34px',
+    }}
+  />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground via-foreground/60 to-foreground/10" />
-        <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-background to-transparent" />
+  {/* Ambient glow blobs (like your first hero) */}
+  <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-primary/10 blur-[120px]" />
+  <div className="absolute top-40 right-[-200px] w-[500px] h-[500px] rounded-full bg-primary/5 blur-[140px]" />
 
-        {/* Dot pattern */}
-        <div className="absolute inset-0 pointer-events-none opacity-10"
-          style={{
-            backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
-            backgroundSize: '34px 34px',
-            color: 'var(--primary)',
-          }} />
+  {/* Soft top fade */}
+  <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/80" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-14 py-28">
-          <div className="max-w-3xl">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2.5 mb-8
-                bg-primary/15 border border-primary/30 rounded-full px-5 py-2"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              <span className="text-primary text-[11px] font-bold tracking-[0.22em] uppercase"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                What We Do
-              </span>
-            </motion.div>
+  {/* Content */}
+  <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-14 py-28">
+    <div className="max-w-3xl">
 
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="text-background font-extrabold leading-[1.05] tracking-[-0.03em] mb-8"
-              style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(2.8rem, 5.5vw, 5rem)' }}
-            >
-              Four pillars.{' '}
-              <br />
-              <span className="text-primary">One unshakeable</span>
-              <br />
-              belief in Africa.
-            </motion.h1>
+      {/* Badge */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="inline-flex items-center gap-2.5 mb-8
+          bg-primary/10 border border-primary/20 rounded-full px-5 py-2"
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+        <span className="text-primary text-[11px] font-bold tracking-[0.22em] uppercase">
+          What We Do
+        </span>
+      </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.25 }}
-              className="text-background/55 text-[16px] leading-[1.9] max-w-[520px] mb-12"
-            >
-              Education. Health. Livelihoods. Environment.
-              Every programme we run addresses a root cause of poverty and
-              unlocks the potential of young Africans in hard-to-reach communities.
-            </motion.p>
+      {/* Title */}
+      <motion.h1
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.85, delay: 0.1 }}
+        className="text-foreground font-extrabold leading-[1.05] tracking-[-0.03em] mb-8"
+        style={{
+          fontFamily: "'Syne', sans-serif",
+          fontSize: 'clamp(2.8rem, 5.5vw, 5rem)',
+        }}
+      >
+        Four pillars.
+        <br />
+        <span className="text-primary">One unshakeable</span>
+        <br />
+        belief in Africa.
+      </motion.h1>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.38 }}
-              className="flex flex-wrap gap-3"
-            >
-              {PILLARS.map(p => (
-                <motion.button
-                  key={p.id}
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.96 }}
-                  onClick={() => {
-                    setActive(p.id)
-                    document.getElementById('pillars')?.scrollIntoView({ behavior: 'smooth' })
-                  }}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-full border
-                    text-[12px] font-bold tracking-wide uppercase transition-all duration-200
-                    ${active === p.id
-                      ? 'bg-primary border-primary text-primary-foreground'
-                      : 'bg-background/8 border-background/20 text-background/65 hover:border-primary/60 hover:text-primary'
-                    }`}
-                  style={{ fontFamily: "'Syne', sans-serif" }}
-                >
-                  <span className="opacity-80">{Icons[p.id as keyof typeof Icons]}</span>
-                  {p.label}
-                </motion.button>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      {/* Paragraph */}
+      <motion.p
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.75, delay: 0.25 }}
+        className="text-muted-foreground text-[16px] leading-[1.9] max-w-[520px] mb-12"
+      >
+        Education. Health. Livelihoods. Environment.
+        Every programme we run addresses a root cause of poverty and
+        unlocks the potential of young Africans in hard-to-reach communities.
+      </motion.p>
+
+      {/* Buttons */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.38 }}
+        className="flex flex-wrap gap-3"
+      >
+        {PILLARS.map((p) => (
+          <motion.button
+            key={p.id}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={() => {
+              setActive(p.id)
+              document
+                .getElementById('pillars')
+                ?.scrollIntoView({ behavior: 'smooth' })
+            }}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full border
+              text-[12px] font-bold tracking-wide uppercase transition-all duration-200
+              ${
+                active === p.id
+                  ? 'bg-primary border-primary text-primary-foreground'
+                  : 'bg-background border-border text-muted-foreground hover:border-primary/60 hover:text-primary'
+              }`}
+          >
+            <span className="opacity-80">
+              {Icons[p.id as keyof typeof Icons]}
+            </span>
+            {p.label}
+          </motion.button>
+        ))}
+      </motion.div>
+
+    </div>
+  </div>
+</section>
 
       {/* ══════ MISSION BANNER ════════════════════════════════════════════════ */}
       <section className="bg-primary border-b border-background/10">
