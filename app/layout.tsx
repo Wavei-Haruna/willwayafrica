@@ -7,31 +7,79 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'WillWay Africa - Empowering Young People Across Africa',
-  description: 'WillWay Africa works in hard-to-reach communities ensuring young people have access to quality education, healthcare, sustainable livelihoods, and the power to shape their futures.',
-  generator: 'v0.app',
+  metadataBase: new URL('https://willwayafrica.org'),
+  title: {
+    default: 'WillWay Africa — Empowering Young People Across Africa',
+    template: '%s | WillWay Africa',
+  },
+  description:
+    'WillWay Africa works in hard-to-reach communities ensuring young people have access to quality education, healthcare, sustainable livelihoods, and the power to shape their futures.',
+  keywords: [
+    'WillWay Africa',
+    'NGO Africa',
+    'youth empowerment Africa',
+    'education Ghana',
+    'healthcare Africa',
+    'sustainable livelihoods',
+    'community development',
+    'young people Africa',
+    'non-profit Africa',
+    'rural communities Ghana',
+  ],
+  authors: [{ name: 'WillWay Africa', url: 'https://willwayafrica.org' }],
+  creator: 'WillWay Africa',
+  publisher: 'WillWay Africa',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'WillWay Africa - Empowering Young People',
-    description: 'Transforming lives across Africa through education, health, livelihoods, and governance.',
     type: 'website',
+    locale: 'en_US',
+    url: 'https://willwayafrica.org',
+    siteName: 'WillWay Africa',
+    title: 'WillWay Africa — Empowering Young People Across Africa',
+    description:
+      'Transforming lives across Africa through education, health, sustainable livelihoods, and governance. Join us in building a better future.',
+    images: [
+      {
+        url: '/Our-Mission.png',
+        width: 1200,
+        height: 630,
+        alt: 'WillWay Africa — Empowering Young People',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'WillWay Africa — Empowering Young People Across Africa',
+    description:
+      'Transforming lives across Africa through education, health, sustainable livelihoods, and governance.',
+    images: ['/Our-Mission.png'],
   },
   icons: {
     icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
     ],
-    apple: '/apple-icon.png',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'android-chrome-192x192', url: '/android-chrome-192x192.png' },
+      { rel: 'android-chrome-512x512', url: '/android-chrome-512x512.png' },
+    ],
   },
+  manifest: '/site.webmanifest',
+  category: 'nonprofit',
 }
 
 export default function RootLayout({

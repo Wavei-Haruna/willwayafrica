@@ -27,14 +27,7 @@ type GalleryImage = {
 }
 
 // ── Storage config ──────────────────────────────────────────────────
-const BUCKET = 'user-uploads'
-
-// Only the WillWay Africa folder
-const FOLDERS = ['willway']
-
-const FOLDER_LABELS: Record<string, string> = {
-  willway: 'WillWay Africa',
-}
+const BUCKET = 'wilway_africa'
 
 // ── Scroll reveal ───────────────────────────────────────────────────
 function Reveal({
@@ -69,47 +62,40 @@ export default function Page() {
   const [lightbox, setLightbox]           = useState<GalleryImage | null>(null)
   const [lightboxIndex, setLightboxIndex] = useState(0)
 
-  // ── Fetch WillWay Africa images ─────────────────────────────────
+  // ── Fetch images from root of bucket ────────────────────────────
   useEffect(() => {
     async function fetchAll() {
       setLoading(true)
       setError(null)
       try {
-        const allImages: GalleryImage[] = []
+        const { data, error: err } = await supabase
+          .storage
+          .from(BUCKET)
+          .list('', {                          // ← empty string = root
+            limit: 500,
+            sortBy: { column: 'name', order: 'asc' },
+          })
 
-        await Promise.all(
-          FOLDERS.map(async folder => {
-            const { data, error: err } = await supabase
+        if (err) throw err
+        if (!data) throw new Error('No data returned')
+
+        const allImages: GalleryImage[] = data
+          .filter(f => f.name && !f.name.startsWith('.') && f.metadata)
+          .map(file => {
+            const { data: { publicUrl } } = supabase
               .storage
               .from(BUCKET)
-              .list(folder, {
-                limit: 200,
-                sortBy: { column: 'name', order: 'asc' },
-              })
+              .getPublicUrl(file.name)           // ← just the filename, no folder prefix
 
-            if (err || !data) return
-
-            const folderImages = data
-              .filter(f => f.name && !f.name.startsWith('.') && f.metadata)
-              .map(file => {
-                const { data: { publicUrl } } = supabase
-                  .storage
-                  .from(BUCKET)
-                  .getPublicUrl(`${folder}/${file.name}`)
-
-                return {
-                  id: `${folder}/${file.name}`,
-                  name: file.name
-                    .replace(/\.[^.]+$/, '')
-                    .replace(/[-_]/g, ' '),
-                  url: publicUrl,
-                  category: folder,
-                }
-              })
-
-            allImages.push(...folderImages)
+            return {
+              id: file.name,
+              name: file.name
+                .replace(/\.[^.]+$/, '')
+                .replace(/[-_]/g, ' '),
+              url: publicUrl,
+              category: 'willway',
+            }
           })
-        )
 
         setImages(allImages)
         setFiltered(allImages)
