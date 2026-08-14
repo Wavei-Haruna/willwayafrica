@@ -136,17 +136,17 @@ const INFO_CARDS = [
   {
     icon: <MapPin className="w-5 h-5" />,
     title: 'Visit Us',
-    lines: ['WillWay Africa HQ', 'Accra, Ghana, West Africa'],
+    lines: ['GG-644-1910, adjacent Zen Filling Station, Tantra Hill - Accra, Ghana'],
   },
   {
     icon: <Mail className="w-5 h-5" />,
     title: 'Email Us',
-    lines: ['info@willwayafrica.org', 'donate@willwayafrica.org'],
+    lines: ['willwayafrica@yahoo.com', 'info@willwayafrica.org'],
   },
   {
     icon: <Phone className="w-5 h-5" />,
     title: 'Call Us',
-    lines: ['+233 000 000 000', 'Mon – Fri, 8am – 5pm GMT'],
+    lines: ['+233 26 231 2578', 'Mon – Fri, 8am – 5pm GMT'],
   },
   {
     icon: <Clock className="w-5 h-5" />,
@@ -490,7 +490,7 @@ export default function Page() {
                     Follow Our Journey
                   </h4>
                 </div>
-                <p className="text-[#9CA3AF] text-[12px] mb-5 leading-relaxed">
+                <p className="text-[#9CA3AF] text-[14px] mb-5 leading-relaxed">
                   Stay updated with our work across Africa.
                 </p>
                 <div className="flex gap-3">
@@ -533,7 +533,7 @@ export default function Page() {
                   >
                     We Respond Fast
                   </h4>
-                  <p className="text-white/70 text-[12px] leading-relaxed">
+                  <p className="text-white/70 text-[14px] leading-relaxed">
                     Our team typically responds to all enquiries within{' '}
                     <strong className="text-white">24 hours</strong> on business
                     days. For urgent matters, please call us directly.
