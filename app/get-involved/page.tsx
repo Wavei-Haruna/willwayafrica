@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Navbar from '@/components/Navbar'
@@ -21,6 +22,355 @@ import {
   Star,
   Send,
 } from 'lucide-react'
+
+// ── Types (mirrored from DonateBtn) ────────────────────────────────
+type Currency = 'GHS' | 'USD' | 'NGN'
+
+const CURRENCY_SYMBOLS: Record<Currency, string> = {
+  GHS: '₵',
+  USD: '$',
+  NGN: '₦',
+}
+
+// ── Paystack hook ───────────────────────────────────────────────────
+function usePaystack() {
+  const initializePayment = ({
+    email, amount, currency, metadata, onSuccess, onClose,
+  }: {
+    email: string
+    amount: number
+    currency: Currency
+    metadata?: Record<string, unknown>
+    onSuccess: (reference: string) => void
+    onClose?: () => void
+  }) => {
+    const reference = `ww_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`
+    const handler = (window as any).PaystackPop.setup({
+      key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+      email,
+      amount: amount * 100,
+      currency,
+      ref: reference,
+      metadata: metadata ?? {},
+      callback: (response: { reference: string }) => { onSuccess(response.reference) },
+      onClose: () => onClose?.(),
+    })
+    handler.openIframe()
+  }
+  return { initializePayment }
+}
+
+// ── Inline Donate Modal ─────────────────────────────────────────────
+// Accepts prefilled amount + currency from the page's own selector
+function DonateModal({
+  onClose,
+  prefilledAmount,
+  prefilledCurrency,
+}: {
+  onClose: () => void
+  prefilledAmount?: number
+  prefilledCurrency?: Currency
+}) {
+  const { initializePayment } = usePaystack()
+
+  const [step, setStep]               = useState<'form' | 'processing' | 'success'>('form')
+  const [email, setEmail]             = useState('')
+  const [currency, setCurrency]       = useState<Currency>(prefilledCurrency ?? 'GHS')
+  const [amount, setAmount]           = useState<number | ''>(prefilledAmount ?? '')
+  const [customAmount, setCustomAmount] = useState(!prefilledAmount)
+  const [error, setError]             = useState('')
+  const [successRef, setSuccessRef]   = useState('')
+  const overlayRef                    = useRef<HTMLDivElement>(null)
+
+  const PRESET_AMOUNTS: Record<Currency, number[]> = {
+    GHS: [50, 100, 250, 500],
+    USD: [10, 25, 50, 100],
+    NGN: [5000, 10000, 25000, 50000],
+  }
+
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === overlayRef.current) onClose()
+  }
+
+  const validate = () => {
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('Enter a valid email address.')
+      return false
+    }
+    if (!amount || Number(amount) <= 0) {
+      setError('Enter a donation amount.')
+      return false
+    }
+    return true
+  }
+
+  const handleSubmit = () => {
+    if (!validate()) return
+    setError('')
+    setStep('processing')
+    initializePayment({
+      email,
+      amount: Number(amount),
+      currency,
+      metadata: { source: 'willway_get_involved', currency },
+      onSuccess: (ref) => { setSuccessRef(ref); setStep('success') },
+      onClose: () => setStep('form'),
+    })
+  }
+
+  const symbol  = CURRENCY_SYMBOLS[currency]
+  const presets = PRESET_AMOUNTS[currency]
+
+  return (
+    <div
+      ref={overlayRef}
+      onClick={handleOverlayClick}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 9999,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '1rem',
+        background: 'rgba(13,13,13,0.55)',
+        backdropFilter: 'blur(4px)',
+      }}
+    >
+      <div style={{
+        position: 'relative', width: '100%', maxWidth: '448px',
+        borderRadius: '16px', overflow: 'hidden',
+        background: '#ffffff',
+        border: '1px solid #D9EEFC',
+        boxShadow: '0 24px 64px rgba(108,199,254,0.18)',
+      }}>
+        {/* Header */}
+        <div style={{
+          padding: '20px 24px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          background: 'linear-gradient(135deg, #6CC7FE 0%, #4db8fe 100%)',
+        }}>
+          <div>
+            <p style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.15em',
+              textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)',
+              marginBottom: '2px', fontFamily: "'DM Sans', sans-serif" }}>
+              WillWay Africa
+            </p>
+            <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff',
+              margin: 0, fontFamily: "'Syne', sans-serif" }}>
+              Make a Donation
+            </h2>
+          </div>
+          <button onClick={onClose} style={{
+            width: '32px', height: '32px', borderRadius: '50%',
+            border: 'none', background: 'rgba(255,255,255,0.15)',
+            color: 'rgba(255,255,255,0.85)', cursor: 'pointer',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        {/* Body */}
+        <div style={{ padding: '24px' }}>
+
+          {step === 'form' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+              {/* Currency */}
+              <div>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: 600,
+                  color: '#5F6B7A', letterSpacing: '0.15em', textTransform: 'uppercase',
+                  marginBottom: '8px', fontFamily: "'DM Sans', sans-serif" }}>
+                  Currency
+                </label>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  {(['GHS', 'USD', 'NGN'] as Currency[]).map((c) => (
+                    <button key={c}
+                      onClick={() => { setCurrency(c); setAmount(''); setCustomAmount(true) }}
+                      style={{
+                        flex: 1, padding: '8px 0', borderRadius: '12px',
+                        fontSize: '13px', fontWeight: 600, cursor: 'pointer',
+                        border: `1px solid ${currency === c ? '#6CC7FE' : '#D9EEFC'}`,
+                        background: currency === c ? '#6CC7FE' : '#F7FBFF',
+                        color: currency === c ? '#ffffff' : '#5F6B7A',
+                        transition: 'all 0.15s',
+                        fontFamily: "'DM Sans', sans-serif",
+                      }}>
+                      {c}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Presets */}
+              <div>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: 600,
+                  color: '#5F6B7A', letterSpacing: '0.15em', textTransform: 'uppercase',
+                  marginBottom: '8px', fontFamily: "'DM Sans', sans-serif" }}>
+                  Amount
+                </label>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: '8px', marginBottom: '8px' }}>
+                  {presets.map((p) => (
+                    <button key={p}
+                      onClick={() => { setAmount(p); setCustomAmount(false); setError('') }}
+                      style={{
+                        padding: '10px 0', borderRadius: '12px',
+                        fontSize: '13px', fontWeight: 700, cursor: 'pointer',
+                        border: `1px solid ${amount === p && !customAmount ? '#F4B942' : '#D9EEFC'}`,
+                        background: amount === p && !customAmount ? '#FFF6DF' : '#F7FBFF',
+                        color: amount === p && !customAmount ? '#0d0d0d' : '#5F6B7A',
+                        transition: 'all 0.15s',
+                        fontFamily: "'DM Sans', sans-serif",
+                      }}>
+                      {symbol}{p.toLocaleString()}
+                    </button>
+                  ))}
+                </div>
+                <button onClick={() => { setCustomAmount(true); setAmount('') }} style={{
+                  width: '100%', padding: '8px 0', fontSize: '12px', fontWeight: 600,
+                  color: '#6CC7FE', background: 'none', border: 'none', cursor: 'pointer',
+                  fontFamily: "'DM Sans', sans-serif",
+                }}>
+                  {customAmount ? '↓ Enter custom amount' : '+ Custom amount'}
+                </button>
+                {customAmount && (
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: '8px',
+                    marginTop: '8px', padding: '12px 16px',
+                    borderRadius: '12px', border: '1px solid #D9EEFC', background: '#F7FBFF',
+                  }}>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#0d0d0d' }}>{symbol}</span>
+                    <input
+                      type="number" min={1} placeholder="0.00"
+                      value={amount}
+                      onChange={(e) => { setAmount(e.target.value === '' ? '' : Number(e.target.value)); setError('') }}
+                      style={{
+                        flex: 1, background: 'transparent', border: 'none', outline: 'none',
+                        fontSize: '14px', fontWeight: 600, color: '#0d0d0d',
+                        fontFamily: "'DM Sans', sans-serif",
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Email */}
+              <div>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: 600,
+                  color: '#5F6B7A', letterSpacing: '0.15em', textTransform: 'uppercase',
+                  marginBottom: '8px', fontFamily: "'DM Sans', sans-serif" }}>
+                  Your Email
+                </label>
+                <input
+                  type="email" placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); setError('') }}
+                  onFocus={(e) => (e.currentTarget.style.borderColor = '#6CC7FE')}
+                  onBlur={(e) => (e.currentTarget.style.borderColor = '#D9EEFC')}
+                  style={{
+                    width: '100%', padding: '12px 16px', borderRadius: '12px',
+                    fontSize: '14px', border: '1px solid #D9EEFC',
+                    background: '#F7FBFF', color: '#0d0d0d', outline: 'none',
+                    transition: 'border-color 0.15s', fontFamily: "'DM Sans', sans-serif",
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+
+              {error && (
+                <p style={{ fontSize: '12px', color: '#ef4444', fontWeight: 500, margin: 0 }}>
+                  {error}
+                </p>
+              )}
+
+              <button
+                onClick={handleSubmit}
+                style={{
+                  width: '100%', padding: '14px', borderRadius: '12px',
+                  fontSize: '14px', fontWeight: 700, color: '#ffffff',
+                  border: 'none', cursor: 'pointer',
+                  background: 'linear-gradient(135deg, #6CC7FE 0%, #4db8fe 100%)',
+                  boxShadow: '0 8px 24px rgba(108,199,254,0.35)',
+                  fontFamily: "'Syne', sans-serif", letterSpacing: '0.04em',
+                }}
+              >
+                Donate {amount ? `${symbol}${Number(amount).toLocaleString()}` : ''} →
+              </button>
+
+              <p style={{ textAlign: 'center', fontSize: '11px', color: '#5F6B7A',
+                margin: 0, fontFamily: "'DM Sans', sans-serif" }}>
+                Secured by Paystack · Your data is safe
+              </p>
+            </div>
+          )}
+
+          {step === 'processing' && (
+            <div style={{ padding: '40px 0', display: 'flex', flexDirection: 'column',
+              alignItems: 'center', gap: '16px', textAlign: 'center' }}>
+              <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
+              <div style={{
+                width: '48px', height: '48px', borderRadius: '50%',
+                border: '4px solid #D9EEFC', borderTopColor: '#6CC7FE',
+                animation: 'spin 0.8s linear infinite',
+              }} />
+              <p style={{ fontSize: '14px', fontWeight: 600, color: '#0d0d0d',
+                margin: 0, fontFamily: "'Syne', sans-serif" }}>
+                Opening payment...
+              </p>
+              <p style={{ fontSize: '12px', color: '#5F6B7A', margin: 0,
+                fontFamily: "'DM Sans', sans-serif" }}>
+                Complete the payment in the Paystack window.
+              </p>
+            </div>
+          )}
+
+          {step === 'success' && (
+            <div style={{ padding: '32px 0', display: 'flex', flexDirection: 'column',
+              alignItems: 'center', gap: '16px', textAlign: 'center' }}>
+              <div style={{
+                width: '56px', height: '56px', borderRadius: '50%',
+                background: '#FFF6DF',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <path d="M6 14l6 6L22 8" stroke="#F4B942" strokeWidth="2.5"
+                    strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#0d0d0d',
+                  margin: '0 0 4px', fontFamily: "'Syne', sans-serif" }}>
+                  Thank you! 🙏
+                </h3>
+                <p style={{ fontSize: '13px', color: '#5F6B7A', margin: 0,
+                  fontFamily: "'DM Sans', sans-serif" }}>
+                  Your donation is making a real difference.
+                </p>
+              </div>
+              <div style={{
+                width: '100%', padding: '12px 16px', borderRadius: '12px',
+                fontSize: '11px', fontFamily: 'monospace', color: '#5F6B7A',
+                wordBreak: 'break-all', background: '#F7FBFF',
+                border: '1px solid #D9EEFC', boxSizing: 'border-box',
+              }}>
+                Ref: {successRef}
+              </div>
+              <button onClick={onClose} style={{
+                marginTop: '8px', padding: '10px 24px', borderRadius: '12px',
+                fontSize: '14px', fontWeight: 700, color: '#ffffff',
+                border: 'none', cursor: 'pointer',
+                background: 'linear-gradient(135deg, #6CC7FE 0%, #4db8fe 100%)',
+                fontFamily: "'Syne', sans-serif",
+              }}>
+                Close
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 // ── Scroll reveal ───────────────────────────────────────────────────
 function Reveal({
@@ -97,40 +447,47 @@ function FloatingInput({
 }
 
 // ── Data ────────────────────────────────────────────────────────────
-const DONATE_AMOUNTS = ['GH₵ 50', 'GH₵ 100', 'GH₵ 250', 'GH₵ 500', 'GH₵ 1,000', 'Custom']
+const DONATE_AMOUNTS: { label: string; value: number | null; currency: Currency }[] = [
+  { label: 'GH₵ 50',    value: 50,   currency: 'GHS' },
+  { label: 'GH₵ 100',   value: 100,  currency: 'GHS' },
+  { label: 'GH₵ 250',   value: 250,  currency: 'GHS' },
+  { label: 'GH₵ 500',   value: 500,  currency: 'GHS' },
+  { label: 'GH₵ 1,000', value: 1000, currency: 'GHS' },
+  { label: 'Custom',    value: null,  currency: 'GHS' },
+]
 
 const IMPACT_MAP = [
-  { amount: 'GH₵ 50',    icon: <GraduationCap className="w-5 h-5" />, impact: 'Buys school supplies for one child for a term' },
-  { amount: 'GH₵ 100',   icon: <Stethoscope   className="w-5 h-5" />, impact: 'Provides health screening for 5 young people' },
-  { amount: 'GH₵ 250',   icon: <Sprout        className="w-5 h-5" />, impact: 'Seeds a small business for one rural woman' },
-  { amount: 'GH₵ 500',   icon: <Landmark      className="w-5 h-5" />, impact: 'Funds a community governance workshop' },
-  { amount: 'GH₵ 1,000', icon: <Globe         className="w-5 h-5" />, impact: 'Supports an ICT lab for 10 rural students' },
+  { label: 'GH₵ 50',    value: 50,   icon: <GraduationCap className="w-5 h-5" />, impact: 'Buys school supplies for one child for a term' },
+  { label: 'GH₵ 100',   value: 100,  icon: <Stethoscope   className="w-5 h-5" />, impact: 'Provides health screening for 5 young people' },
+  { label: 'GH₵ 250',   value: 250,  icon: <Sprout        className="w-5 h-5" />, impact: 'Seeds a small business for one rural woman' },
+  { label: 'GH₵ 500',   value: 500,  icon: <Landmark      className="w-5 h-5" />, impact: 'Funds a community governance workshop' },
+  { label: 'GH₵ 1,000', value: 1000, icon: <Globe         className="w-5 h-5" />, impact: 'Supports an ICT lab for 10 rural students' },
 ]
 
 const VOLUNTEER_ROLES = [
-  { icon: <GraduationCap className="w-5 h-5" />, title: 'Education Mentor',      desc: 'Coach and mentor students from primary school through university.' },
-  { icon: <Stethoscope   className="w-5 h-5" />, title: 'Health Educator',       desc: 'Deliver reproductive health & HIV/AIDS awareness in communities.' },
-  { icon: <HandCoins     className="w-5 h-5" />, title: 'Business Trainer',      desc: 'Train rural women in entrepreneurship and financial management.' },
-  { icon: <Globe         className="w-5 h-5" />, title: 'Digital Skills Coach',  desc: 'Teach ICT literacy in our solar-powered community resource centres.' },
-  { icon: <Landmark      className="w-5 h-5" />, title: 'Governance Facilitator',desc: 'Lead civic education and community empowerment workshops.' },
+  { icon: <GraduationCap className="w-5 h-5" />, title: 'Education Mentor',       desc: 'Coach and mentor students from primary school through university.' },
+  { icon: <Stethoscope   className="w-5 h-5" />, title: 'Health Educator',        desc: 'Deliver reproductive health & HIV/AIDS awareness in communities.' },
+  { icon: <HandCoins     className="w-5 h-5" />, title: 'Business Trainer',       desc: 'Train rural women in entrepreneurship and financial management.' },
+  { icon: <Globe         className="w-5 h-5" />, title: 'Digital Skills Coach',   desc: 'Teach ICT literacy in our solar-powered community resource centres.' },
+  { icon: <Landmark      className="w-5 h-5" />, title: 'Governance Facilitator', desc: 'Lead civic education and community empowerment workshops.' },
   { icon: <Star          className="w-5 h-5" />, title: 'General Support',        desc: 'Help wherever needed — research, communications, events & more.' },
 ]
 
 const PARTNER_TYPES = [
   {
-    icon: <Handshake  className="w-6 h-6" />,
+    icon: <Handshake className="w-6 h-6" />,
     title: 'Corporate Partners',
     desc: 'Align your CSR goals with real community impact. Co-fund programmes, sponsor ICT labs, or support girl-child education.',
     cta: 'Become a Corporate Partner',
   },
   {
-    icon: <Globe      className="w-6 h-6" />,
+    icon: <Globe className="w-6 h-6" />,
     title: 'NGO & Government',
     desc: 'Join our coalition of change-makers. We welcome co-implementation partnerships on health, education, and governance.',
     cta: 'Explore Joint Programmes',
   },
   {
-    icon: <Heart      className="w-6 h-6" />,
+    icon: <Heart className="w-6 h-6" />,
     title: 'Individual Champions',
     desc: 'Become an ambassador. Share our story, fundraise in your community, or connect us with networks that share our mission.',
     cta: 'Become an Ambassador',
@@ -145,12 +502,19 @@ const VOLUNTEER_IMAGES = [
 
 // ════════════════════════════════════════════════════════════════════
 export default function Page() {
-  const [selectedAmount, setSelectedAmount] = useState('GH₵ 100')
-  const [customAmount, setCustomAmount]     = useState('')
+  const [selectedAmount, setSelectedAmount] = useState(DONATE_AMOUNTS[1]) // GH₵ 100 default
+  const [customAmountValue, setCustomAmountValue] = useState('')
   const [activeTab, setActiveTab]           = useState<'donate' | 'volunteer' | 'partner'>('donate')
   const [volForm, setVolForm]               = useState({ name: '', email: '', role: '', message: '' })
   const [volSubmitted, setVolSubmitted]     = useState(false)
   const [volLoading, setVolLoading]         = useState(false)
+
+  // Modal state
+  const [modalOpen, setModalOpen]           = useState(false)
+  const [mounted, setMounted]               = useState(false)
+
+  // Mount guard for portal
+  useState(() => { setMounted(true) })
 
   const setVol = (k: string) => (v: string) => setVolForm(f => ({ ...f, [k]: v }))
 
@@ -162,17 +526,31 @@ export default function Page() {
     setVolSubmitted(true)
   }
 
-  const currentImpact = IMPACT_MAP.find(m => m.amount === selectedAmount)
+  // Derive prefilled amount for modal
+  const modalAmount = selectedAmount.value !== null
+    ? selectedAmount.value
+    : customAmountValue ? Number(customAmountValue) : undefined
+
+  const currentImpact = IMPACT_MAP.find(m => m.value === selectedAmount.value)
 
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'DM Sans', sans-serif" }}>
       <Navbar />
 
+      {/* Portal: modal renders into document.body, outside all transforms */}
+      {typeof window !== 'undefined' && modalOpen && createPortal(
+        <DonateModal
+          onClose={() => setModalOpen(false)}
+          prefilledAmount={modalAmount}
+          prefilledCurrency="GHS"
+        />,
+        document.body
+      )}
+
       {/* ══════════════════════════════════════════════════════ */}
       {/* HERO                                                   */}
       {/* ══════════════════════════════════════════════════════ */}
       <section className="relative bg-white pt-20 pb-20 overflow-hidden">
-        {/* Dot grid */}
         <div className="absolute inset-0 pointer-events-none opacity-30"
           style={{
             backgroundImage: 'radial-gradient(circle, #6CC7FE22 1px, transparent 1px)',
@@ -227,9 +605,9 @@ export default function Page() {
                 className="flex gap-2 flex-wrap"
               >
                 {[
-                  { key: 'donate',    icon: <HandCoins className="w-4 h-4" />,  label: 'Donate' },
-                  { key: 'volunteer', icon: <Users     className="w-4 h-4" />,  label: 'Volunteer' },
-                  { key: 'partner',   icon: <Handshake className="w-4 h-4" />,  label: 'Partner' },
+                  { key: 'donate',    icon: <HandCoins className="w-4 h-4" />, label: 'Donate' },
+                  { key: 'volunteer', icon: <Users     className="w-4 h-4" />, label: 'Volunteer' },
+                  { key: 'partner',   icon: <Handshake className="w-4 h-4" />, label: 'Partner' },
                 ].map(tab => (
                   <motion.button
                     key={tab.key}
@@ -256,7 +634,6 @@ export default function Page() {
               transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               className="relative hidden lg:flex items-center justify-center h-[420px]"
             >
-              {/* Blob */}
               <motion.div
                 animate={{ borderRadius: [
                   '60% 40% 55% 45% / 50% 60% 40% 50%',
@@ -266,12 +643,10 @@ export default function Page() {
                 transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
                 className="absolute inset-0 bg-[#6CC7FE]/08"
               />
-              {/* Main photo */}
               <div className="relative z-10 w-[260px] h-[340px] rounded-3xl overflow-hidden
                 shadow-[0_20px_60px_rgba(108,199,254,0.25)] border-4 border-white">
                 <Image src={VOLUNTEER_IMAGES[0]} alt="Volunteer" fill className="object-cover" />
               </div>
-              {/* Side photo 1 */}
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
@@ -280,7 +655,6 @@ export default function Page() {
               >
                 <Image src={VOLUNTEER_IMAGES[1]} alt="Community" fill className="object-cover" />
               </motion.div>
-              {/* Side photo 2 */}
               <motion.div
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
@@ -289,7 +663,6 @@ export default function Page() {
               >
                 <Image src={VOLUNTEER_IMAGES[2]} alt="Health" fill className="object-cover" />
               </motion.div>
-              {/* Floating stat */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -334,7 +707,7 @@ export default function Page() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 
-                  {/* Amount selector */}
+                  {/* Amount selector card */}
                   <Reveal direction="left">
                     <div className="bg-white rounded-3xl p-8 border border-gray-100
                       shadow-[0_8px_40px_rgba(108,199,254,0.1)]">
@@ -347,25 +720,25 @@ export default function Page() {
                       <div className="grid grid-cols-3 gap-3 mb-6">
                         {DONATE_AMOUNTS.map(amt => (
                           <motion.button
-                            key={amt}
+                            key={amt.label}
                             whileHover={{ scale: 1.04 }}
                             whileTap={{ scale: 0.97 }}
-                            onClick={() => setSelectedAmount(amt)}
+                            onClick={() => { setSelectedAmount(amt); setCustomAmountValue('') }}
                             className={`py-3.5 rounded-xl text-[13px] font-bold
                               border-2 transition-all duration-200
-                              ${selectedAmount === amt
+                              ${selectedAmount.label === amt.label
                                 ? 'bg-[#6CC7FE] text-white border-[#6CC7FE] shadow-[0_4px_16px_rgba(108,199,254,0.4)]'
                                 : 'bg-white text-[#374151] border-gray-200 hover:border-[#6CC7FE]'
                               }`}
                             style={{ fontFamily: "'Syne', sans-serif" }}
                           >
-                            {amt}
+                            {amt.label}
                           </motion.button>
                         ))}
                       </div>
 
-                      {/* Custom amount */}
-                      {selectedAmount === 'Custom' && (
+                      {/* Custom amount input */}
+                      {selectedAmount.value === null && (
                         <motion.div
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
@@ -377,8 +750,8 @@ export default function Page() {
                             <input
                               type="number"
                               placeholder="Enter amount"
-                              value={customAmount}
-                              onChange={e => setCustomAmount(e.target.value)}
+                              value={customAmountValue}
+                              onChange={e => setCustomAmountValue(e.target.value)}
                               className="w-full bg-[#F8FBFF] border border-gray-200 rounded-xl
                                 pl-14 pr-4 py-4 text-[14px] text-[#0D0D0D] outline-none
                                 focus:border-[#6CC7FE] focus:shadow-[0_0_0_3px_rgba(108,199,254,0.15)]
@@ -391,21 +764,23 @@ export default function Page() {
 
                       {/* Frequency toggle */}
                       <div className="flex gap-2 mb-8">
-                        {['One-time', 'Monthly', 'Annually'].map(f => (
+                        {['One-time', 'Monthly', 'Annually'].map((f, i) => (
                           <button key={f}
-                            className="flex-1 py-2.5 rounded-xl text-[12px] font-semibold
-                              border border-gray-200 text-[#9CA3AF]
-                              hover:border-[#6CC7FE] hover:text-[#6CC7FE]
-                              transition-all duration-200 first:bg-[#6CC7FE]/10
-                              first:border-[#6CC7FE] first:text-[#6CC7FE]"
+                            className={`flex-1 py-2.5 rounded-xl text-[12px] font-semibold
+                              border transition-all duration-200
+                              ${i === 0
+                                ? 'bg-[#6CC7FE]/10 border-[#6CC7FE] text-[#6CC7FE]'
+                                : 'border-gray-200 text-[#9CA3AF] hover:border-[#6CC7FE] hover:text-[#6CC7FE]'
+                              }`}
                             style={{ fontFamily: "'DM Sans', sans-serif" }}>
                             {f}
                           </button>
                         ))}
                       </div>
 
-                      <motion.a
-                        href="/donate/checkout"
+                      {/* ← THE KEY CHANGE: opens modal instead of navigating */}
+                      <motion.button
+                        onClick={() => setModalOpen(true)}
                         whileHover={{ scale: 1.02, backgroundColor: '#45b8f5' }}
                         whileTap={{ scale: 0.98 }}
                         className="flex items-center justify-center gap-3 w-full
@@ -416,7 +791,7 @@ export default function Page() {
                         style={{ fontFamily: "'Syne', sans-serif" }}
                       >
                         Donate Now <ArrowRight className="w-4 h-4" />
-                      </motion.a>
+                      </motion.button>
 
                       <p className="text-[#C4C9D4] text-[11px] text-center mt-4">
                         Secure payment · All major cards accepted · Receipt issued
@@ -432,21 +807,26 @@ export default function Page() {
                         Your Impact at a Glance
                       </h3>
 
-                      {IMPACT_MAP.map((item, i) => (
+                      {IMPACT_MAP.map((item) => (
                         <motion.div
-                          key={item.amount}
+                          key={item.label}
                           whileHover={{ x: 6, borderColor: '#6CC7FE' }}
-                          onClick={() => setSelectedAmount(item.amount)}
+                          onClick={() => {
+                            setSelectedAmount(
+                              DONATE_AMOUNTS.find(a => a.value === item.value) ?? DONATE_AMOUNTS[0]
+                            )
+                            setCustomAmountValue('')
+                          }}
                           className={`flex items-center gap-4 p-5 rounded-2xl border-2
                             cursor-pointer transition-all duration-200
-                            ${selectedAmount === item.amount
+                            ${selectedAmount.value === item.value
                               ? 'border-[#6CC7FE] bg-[#6CC7FE]/05'
                               : 'border-gray-100 bg-white hover:bg-gray-50'
                             }`}
                         >
                           <div className={`w-12 h-12 rounded-xl flex items-center justify-center
                             flex-shrink-0 transition-colors duration-200
-                            ${selectedAmount === item.amount
+                            ${selectedAmount.value === item.value
                               ? 'bg-[#6CC7FE] text-white'
                               : 'bg-[#6CC7FE]/10 border border-[#6CC7FE]/20 text-[#6CC7FE]'
                             }`}>
@@ -455,13 +835,13 @@ export default function Page() {
                           <div>
                             <p className="font-extrabold text-[#6CC7FE] text-[15px]"
                               style={{ fontFamily: "'Syne', sans-serif" }}>
-                              {item.amount}
+                              {item.label}
                             </p>
                             <p className="text-[#374151] text-[13px] leading-relaxed">
                               {item.impact}
                             </p>
                           </div>
-                          {selectedAmount === item.amount && (
+                          {selectedAmount.value === item.value && (
                             <CheckCircle className="w-5 h-5 text-[#6CC7FE] ml-auto flex-shrink-0" />
                           )}
                         </motion.div>
@@ -498,8 +878,6 @@ export default function Page() {
                 </Reveal>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-
-                  {/* Volunteer roles */}
                   <Reveal direction="left">
                     <h3 className="font-extrabold text-[#0D0D0D] text-[1.1rem] mb-5"
                       style={{ fontFamily: "'Syne', sans-serif" }}>
@@ -537,12 +915,9 @@ export default function Page() {
                     </div>
                   </Reveal>
 
-                  {/* Volunteer signup form */}
                   <Reveal direction="right" delay={0.1}>
                     <div className="bg-white rounded-3xl overflow-hidden border border-gray-100
                       shadow-[0_8px_40px_rgba(108,199,254,0.1)]">
-
-                      {/* Form header */}
                       <div className="bg-[#6CC7FE] px-7 py-6 relative overflow-hidden">
                         <div className="absolute inset-0 opacity-10 pointer-events-none"
                           style={{
@@ -594,7 +969,6 @@ export default function Page() {
                               <FloatingInput id="vol-email" label="Email Address" type="email"
                                 value={volForm.email} onChange={setVol('email')} />
 
-                              {/* Role select */}
                               <div className="relative">
                                 <select
                                   value={volForm.role}
@@ -621,7 +995,6 @@ export default function Page() {
                                 </div>
                               </div>
 
-                              {/* Why volunteer */}
                               <div className="relative">
                                 <textarea
                                   rows={4}
@@ -699,7 +1072,6 @@ export default function Page() {
                   </p>
                 </Reveal>
 
-                {/* Partner type cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-16">
                   {PARTNER_TYPES.map((p, i) => (
                     <Reveal key={p.title} delay={i * 0.1}>
@@ -733,7 +1105,6 @@ export default function Page() {
                   ))}
                 </div>
 
-                {/* Partner CTA banner */}
                 <Reveal delay={0.2}>
                   <div className="relative bg-[#6CC7FE] rounded-3xl px-8 py-12
                     md:px-14 overflow-hidden flex flex-col md:flex-row

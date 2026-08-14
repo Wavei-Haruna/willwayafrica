@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ChevronDown } from 'lucide-react'
+import { DonateBtn } from '@/components/DonateBtn'
 
 const WHAT_WE_DO_PILLARS = [
   {
@@ -103,7 +104,6 @@ export default function Navbar() {
                     onMouseEnter={openDropdown}
                     onMouseLeave={closeDropdown}
                   >
-                    {/* Trigger — clicking navigates, hovering opens dropdown */}
                     <Link
                       href={item.href}
                       className="relative flex items-center gap-1 px-4 py-2 text-sm font-medium
@@ -119,21 +119,18 @@ export default function Navbar() {
                       />
                     </Link>
 
-                    {/* Dropdown panel */}
                     {dropdownOpen && (
                       <div
                         onMouseEnter={openDropdown}
                         onMouseLeave={closeDropdown}
                         className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50 w-[340px]"
                       >
-                        {/* Arrow */}
                         <div className="absolute top-[6px] left-1/2 -translate-x-1/2
                           w-3 h-3 bg-white border-l border-t border-border rotate-45 z-10" />
 
                         <div className="relative bg-white border border-border rounded-2xl
                           shadow-[0_12px_40px_rgba(0,0,0,0.10)] overflow-hidden">
 
-                          {/* Header strip */}
                           <div className="px-5 py-3.5 border-b border-border bg-secondary/40">
                             <p className="text-[10px] font-black tracking-[0.2em] uppercase text-muted-foreground"
                               style={{ fontFamily: "'Syne', sans-serif" }}>
@@ -141,9 +138,8 @@ export default function Navbar() {
                             </p>
                           </div>
 
-                          {/* Pillar links */}
                           <div className="py-2">
-                            {WHAT_WE_DO_PILLARS.map((pillar, i) => (
+                            {WHAT_WE_DO_PILLARS.map((pillar) => (
                               <Link
                                 key={pillar.label}
                                 href={pillar.href}
@@ -151,7 +147,6 @@ export default function Navbar() {
                                 className="group flex items-center gap-3.5 px-5 py-3
                                   hover:bg-secondary/60 transition-colors duration-150"
                               >
-                                {/* Number + icon */}
                                 <div className="flex-shrink-0 w-8 h-8 rounded-lg
                                   bg-primary/8 text-primary flex items-center justify-center
                                   group-hover:bg-primary group-hover:text-primary-foreground
@@ -169,7 +164,6 @@ export default function Navbar() {
                                   </p>
                                 </div>
 
-                                {/* Subtle arrow */}
                                 <svg viewBox="0 0 16 16" fill="currentColor"
                                   className="w-3 h-3 text-muted-foreground opacity-0
                                     group-hover:opacity-100 group-hover:translate-x-0.5
@@ -180,7 +174,6 @@ export default function Navbar() {
                             ))}
                           </div>
 
-                          {/* Footer CTA */}
                           <div className="px-5 py-3.5 border-t border-border bg-secondary/40
                             flex items-center justify-between gap-3">
                             <p className="text-[11px] text-muted-foreground leading-snug">
@@ -205,7 +198,6 @@ export default function Navbar() {
                 )
               }
 
-              // Plain link
               return (
                 <Link
                   key={item.label}
@@ -222,18 +214,9 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* DONATE BUTTON */}
+          {/* DESKTOP DONATE BTN */}
           <div className="hidden md:block">
-            <Link
-              href="/get-involved"
-              className="bg-primary text-primary-foreground font-bold text-sm
-                px-6 py-2.5 rounded-xl tracking-wide
-                hover:opacity-90 transition-opacity duration-200
-                shadow-[0_2px_10px_rgba(0,0,0,0.12)]"
-              style={{ fontFamily: "'Syne', sans-serif" }}
-            >
-              DONATE
-            </Link>
+            <DonateBtn />
           </div>
 
           {/* MOBILE HAMBURGER */}
@@ -314,17 +297,11 @@ export default function Navbar() {
             )
           })}
 
+          {/* MOBILE DONATE BTN */}
           <div className="pt-3">
-            <Link
-              href="/get-involved"
-              onClick={() => setMobileOpen(false)}
-              className="block w-full text-center bg-primary text-primary-foreground
-                font-bold text-sm py-3 rounded-xl tracking-wide
-                hover:opacity-90 transition-opacity"
-              style={{ fontFamily: "'Syne', sans-serif" }}
-            >
-              DONATE
-            </Link>
+            <DonateBtn className="block w-full text-center bg-primary text-primary-foreground
+              font-bold text-sm py-3 rounded-xl tracking-wide hover:opacity-90 transition-opacity"
+            />
           </div>
         </div>
       )}

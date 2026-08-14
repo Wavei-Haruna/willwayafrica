@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { DonateBtn } from './DonateBtn'
 
 // ── Rotating headline words ─────────────────────────────────────────
 const ROTATING_WORDS = [
@@ -135,20 +136,16 @@ export default function HeroSection() {
             className="flex flex-wrap gap-4"
           >
             {/* DONATE NOW — matches Figma */}
-            <motion.a
-              href="/what-we-do"
-              whileHover={{ scale: 1.04, backgroundColor: '#45b8f5' }}
-              whileTap={{ scale: 0.97 }}
-              className="bg-[#6CC7FE] text-[#0D0D0D] font-black text-[13px]
-                px-8 py-[14px] rounded-xl tracking-[0.12em] uppercase
-                shadow-[0_6px_24px_rgba(108,199,254,0.38)]
-                transition-colors duration-200"
-              style={{ fontFamily: "'Syne', sans-serif" }}
-            >
-              Donate Now
-            </motion.a>
+           <DonateBtn
+  className="px-8 py-[14px] rounded-xl font-black text-[13px] text-white
+    tracking-[0.12em] uppercase transition-all duration-200
+    hover:opacity-90 active:scale-[0.97]"
+  style={{ background: 'linear-gradient(135deg, #6CC7FE 0%, #4db8fe 100%)',
+           boxShadow: '0 6px 24px rgba(108,199,254,0.38)',
+           fontFamily: "'Syne', sans-serif" }}
+/>
 
-         
+
           </motion.div>
 
 
