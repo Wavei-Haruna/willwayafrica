@@ -699,7 +699,7 @@ export default function Page() {
                     style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)' }}>
                     Every Cedi <span className="text-[#6CC7FE]">Changes a Life.</span>
                   </h2>
-                  <p className="text-[#9CA3AF] text-[14px] leading-relaxed">
+                  <p className="text-[#9CA3AF] text-[15px] leading-relaxed">
                     100% of your donation goes directly to programmes on the ground.
                     No admin cuts. No child left behind.
                   </p>
@@ -1166,7 +1166,7 @@ export default function Page() {
                   style={{ fontFamily: "'Syne', sans-serif" }}>
                   {s.num}
                 </p>
-                <p className="text-[#9CA3AF] text-[11px] mt-1.5 tracking-[0.1em] uppercase"
+                <p className="text-[#9CA3AF] text-[14px] mt-1.5 tracking-[0.1em] uppercase"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {s.label}
                 </p>

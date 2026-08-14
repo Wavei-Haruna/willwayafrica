@@ -123,7 +123,7 @@ export default function HeroSection() {
           {/* Sub-copy */}
           <motion.p
             variants={fadeUp} initial="hidden" animate="show" custom={3}
-            className="text-[#9CA3AF] text-[15px] leading-[1.85] mt-7 mb-10 max-w-[420px]"
+            className="text-[#9CA3AF] text-[18px] leading-[1.85] mt-7 mb-10 max-w-[420px]"
             style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400 }}
           >
             Empowering young people in hard-to-reach rural communities across Africa

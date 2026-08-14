@@ -68,16 +68,16 @@ function SectionLabel({ text }: { text: string }) {
 // ── Real Unsplash images ────────────────────────────────────────────
 const INITIATIVE_IMAGES = [
   {
-    url: '/Our-Initiative_1.jpg',
+    url: '/Education-And-Digital.jpeg',
     alt: 'Student studying at night',
   },
   {
-    url: '/Our-Initiative_Health.jpg',
+    url: '/Health-And-Wellbeing.jpeg',
     alt: 'Healthcare workers in Africa',
   },
 ]
 
-const WHY_IMAGE = '/Why-Young-People-and-Rural-Women.jpg'
+const WHY_IMAGE = '/Why-Young-People-and-Rural-Women-2.jpg'
 
 const IMPACT_IMAGE ='/Our-Impact.jpg'
 
@@ -525,30 +525,6 @@ export default function WhyInitiativeImpact() {
             </div>
 
             {/* CTA */}
-            <Reveal delay={0.5} className="mt-10">
-              <motion.a
-                href="/impact"
-                whileHover={{ scale: 1.04, backgroundColor: '#45b8f5' }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-3 bg-[#6CC7FE]
-                  text-[#0D0D0D] font-black text-[13px]
-                  px-8 py-4 rounded-xl tracking-[0.1em] uppercase
-                  shadow-[0_6px_24px_rgba(108,199,254,0.38)]
-                  transition-colors duration-200"
-                style={{ fontFamily: "'Syne', sans-serif" }}
-              >
-                See Full Impact Report
-                <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
-                  <path
-                    d="M5 12h14M13 6l6 6-6 6"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </motion.a>
-            </Reveal>
           </Reveal>
         </div>
       </section>

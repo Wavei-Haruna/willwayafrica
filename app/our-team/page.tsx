@@ -359,7 +359,7 @@ export default function TeamSection() {
             </span>
           </h2>
 
-          <p className="text-[#9CA3AF] text-[15px] leading-[1.85] mt-6 max-w-[520px] mx-auto"
+          <p className="text-[#9CA3AF] text-[16px] leading-[1.85] mt-6 max-w-[520px] mx-auto"
             style={{ fontFamily: "'DM Sans', sans-serif" }}>
             Dedicated professionals united by a shared passion for transforming
             lives in hard-to-reach communities across Africa.
@@ -377,7 +377,7 @@ export default function TeamSection() {
                   style={{ fontFamily: "'Syne', sans-serif" }}>
                   {stat.value}
                 </p>
-                <p className="text-[#9CA3AF] text-[11px] tracking-wider uppercase mt-1"
+                <p className="text-[#9CA3AF] text-[14px] tracking-wider uppercase mt-1"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {stat.label}
                 </p>

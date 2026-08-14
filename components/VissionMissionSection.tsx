@@ -166,8 +166,7 @@ export default function VisionMissionSection() {
               >
                 To{' '}
                 <strong className="text-[#0D0D0D] font-bold">EMPOWER</strong>{' '}
-                young people to spearhead the development of their communities
-                through advocacy, social mobilization and mix interventions.
+                women and young people in rural communities across Africa through inclusive and sustainable development that ensures equitable access to quality education, healthcare, and economic opportunities—fostering dignity, self-reliance, and lasting community transformation.
               </p>
 
               <div className="flex flex-wrap gap-2">
